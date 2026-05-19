@@ -1,0 +1,182 @@
+/* --- Globální nastavení a barvy --- */
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-color: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --radius: 8px;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+}
+
+/* --- Hlavní kontejner webu --- */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* --- Typografie a nadpisy --- */
+h1, h2, h3, h4 {
+    color: #0f172a;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+h1 { font-size: 2.25rem; line-height: 1.2; }
+h2 { font-size: 1.75rem; margin-top: 2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
+h3 { font-size: 1.25rem; }
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* --- Karty (Články, Komentáře) --- */
+.post, .comment-box, .form-box {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+}
+
+.date {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+/* --- Styl pro výpis komentářů --- */
+.comments-list {
+    margin-top: 1.5rem;
+}
+
+.comment-item {
+    background: var(--card-bg);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius);
+    border-left: 4px solid var(--primary-color);
+    box-shadow: var(--shadow);
+    margin-bottom: 1rem;
+}
+
+.comment-meta {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.comment-meta b {
+    color: #0f172a;
+}
+
+.comment-content {
+    color: #334155;
+}
+
+/* --- Moderní Formuláře --- */
+.form-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-box label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.form-box input[type="text"],
+.form-box input[type="email"],
+.form-box textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-box input:focus,
+.form-box textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-box textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* --- Tlačítka --- */
+input[type="submit"], button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    align-self: flex-start;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--primary-hover);
+}
+
+/* --- Flash zprávy (upozornění) --- */
+.flash {
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.flash.success {
+    background-color: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.kls{
+    color:black;
+    transition: 0.4s;
+    border: 1px solid midnightblue;
+    padding: 12px
+}
+.kls:hover{
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    padding: 17px;
+    border-radius: 45% 20px 20px 45%
+}
