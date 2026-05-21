@@ -21,3 +21,8 @@ database:
 	user: *zde vložte jméno uživatele*
 	password: *zde vložte heslo k databázi*
 
+
+security:
+	users:
+		admin: secret  # user 'admin', password 'secret'
+

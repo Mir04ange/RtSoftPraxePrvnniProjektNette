@@ -21,26 +21,5 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
             ->order('created_at DESC')
             ->limit(5);
     }
-protected function createComponentCreatePost(): Form
-    {
-        $form = new Form;
-        $form->addText('title', 'Titulek příspěvku:')->setRequired();
-        $form->addTextArea('content', 'Obsah příspěvku:')->setRequired();
-        $form->addSubmit('send', 'Uložit příspěvek');
 
-        $form->onSuccess[] = $this->createPostSucceeded(...);
-
-        return $form;
-    }
-
-    private function createPostSucceeded(Form $form, \stdClass $data): void
-    {
-        $post = $this->database->table('posts')->insert([
-            'title' => $data->title,
-            'content' => $data->content,
-        ]);
-
-        $this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
-        $this->redirect('Post:show', $post->id); // Přesměruje rovnou na detail nového článku
-    }
 }

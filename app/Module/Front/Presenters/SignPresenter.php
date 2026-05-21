@@ -2,7 +2,6 @@
 namespace App\Module\Front\Presenters;
 
 use Nette;
-
 use Nette\Application\UI\Form;
 
 final class SignPresenter extends Nette\Application\UI\Presenter
@@ -22,32 +21,47 @@ final class SignPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-
-
-
     private function signInFormSucceeded(Form $form, \stdClass $data): void
     {
         try {
             $this->getUser()->login($data->username, $data->password);
-            $this->redirect('Home:');
+            $this->redirect('Homepage:default');
 
         } catch (Nette\Security\AuthenticationException $e) {
             $form->addError('Nesprávné přihlašovací jméno nebo heslo.');
         }
     }
 
+    protected function createComponentSignOutForm(): Form
+    {
+        $form = new Form;
 
+        $form->addSubmit('send', 'Odhlásit');
 
+        $form->onSuccess[] = [$this, 'signOutFormSucceeded'];
 
+        return $form;
+    }
 
-    public function actionOut(): void
+    public function signOutFormSucceeded(Form $form, \stdClass $data): void
     {
         $this->getUser()->logout();
-        $this->flashMessage('Odhlášení bylo úspěšné.');
-        $this->redirect('Home:');
+
+        $this->flashMessage('Byli jste odhlášeni.');
+
+        $this->redirect('Homepage:default');
     }
 
 
-}
 
+
+
+
+
+
+
+
+
+
+}
 

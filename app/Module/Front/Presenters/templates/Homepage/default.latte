@@ -2,6 +2,4 @@
 {foreach $posts as $post}
 	<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
 {/foreach}
-
-<H4>Napsat novy Prispevek</H4>
-{control createPost}
+<a n:href="Edit:create">Napsat nový příspěvek</a>
