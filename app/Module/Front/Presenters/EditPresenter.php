@@ -1,17 +1,20 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Module\Front\Presenters;
 
+use App\Model\PostRepository;
 use Nette;
 use Nette\Application\UI\Form;
 
 final class EditPresenter extends Nette\Application\UI\Presenter
 {
     public function __construct(
-        private Nette\Database\Explorer $database,
+        private PostRepository $postRepository,
     ) {
+        parent::__construct();
     }
-
-
 
     protected function createComponentPostForm(): Form
     {
@@ -20,53 +23,31 @@ final class EditPresenter extends Nette\Application\UI\Presenter
             ->setRequired();
         $form->addTextArea('content', 'Obsah:')
             ->setRequired();
-
         $form->addSubmit('send', 'Uložit a publikovat');
         $form->onSuccess[] = $this->postFormSucceeded(...);
-
         return $form;
     }
 
-
-
-    private function postFormSucceeded(array $data): void
+    private function postFormSucceeded(Form $form, array $data): void
     {
         $id = $this->getParameter('id');
-
         if ($id) {
-            $post = $this->database
-                ->table('posts')
-                ->get($id);
-            $post->update($data);
-
+            $post = $this->postRepository->update((int)$id, $data);
         } else {
-            $post = $this->database
-                ->table('posts')
-                ->insert($data);
+            $post = $this->postRepository->insert($data);
         }
 
         $this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
         $this->redirect('Post:show', $post->id);
     }
 
-
     public function renderEdit(int $id): void
     {
-        $post = $this->database
-            ->table('posts')
-            ->get($id);
-
+        $post = $this->postRepository->getById($id);
         if (!$post) {
             $this->error('Post not found');
         }
-
         $this->getComponent('postForm')
             ->setDefaults($post->toArray());
     }
-
-
-
-
-
-
 }
