@@ -2,7 +2,7 @@ parameters:
 
 
 application:
-	errorPresenter: Auxiliary:Error
+	errorPresenter: Error
 	mapping:
 		*: App\Module\*\Presenters\*Presenter
 
@@ -18,11 +18,10 @@ di:
 
 database:
 	dsn: 'mysql:host=127.0.0.1;dbname=quickstart'
-	user: *zde vložte jméno uživatele*
-	password: *zde vložte heslo k databázi*
+	user: root
+	password:
 
 
 security:
 	users:
 		admin: secret  # user 'admin', password 'secret'
-

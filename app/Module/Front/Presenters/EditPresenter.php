@@ -28,13 +28,13 @@ final class EditPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-    private function postFormSucceeded(Form $form, array $data): void
+    private function postFormSucceeded(Form $form, \stdClass $data): void
     {
         $id = $this->getParameter('id');
         if ($id) {
-            $post = $this->postRepository->update((int)$id, $data);
+            $post = $this->postRepository->update((int)$id, (array)$data);
         } else {
-            $post = $this->postRepository->insert($data);
+            $post = $this->postRepository->insert((array)$data);
         }
 
         $this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
