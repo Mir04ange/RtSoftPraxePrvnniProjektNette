@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Model;
 
 use Nette;
+use Nette\Database\Table\Selection;
 
 final class PostRepository
 {
     public function __construct(
-        private Nette\Database\Explorer $database,
+        public Nette\Database\Explorer $database,
     ) {
     }
 
