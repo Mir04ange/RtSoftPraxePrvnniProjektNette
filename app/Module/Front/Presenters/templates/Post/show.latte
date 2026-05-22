@@ -1,40 +1,30 @@
 {block content}
-<head>
+<div class="post-header">
+    <a class="kls" n:href="Homepage:default">← Zpět na výpis příspěvků</a>
+</div>
 
-    <style>
-        .kls{
-            color:black;
-            transition: 0.4s;
-            border: 1px solid midnightblue;
-            padding: 12px
-        }
-        .kls:hover{
-            text-decoration: none;
-            background-color: black;
-            color: white;
-            padding: 17px;
-            border-radius: 45% 20px 20px 45%
-        }
+<article class="post">
+    <div class="date">{$post->created_at|date:'j. n. Y'}</div>
+    <h1>{$post->title}</h1>
+    <div class="post-content">
+        {$post->content}
+    </div>
+    
+    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid var(--bg-dark-gray);">
+        <a class="btn" n:href="Edit:edit $post->id">✏️ Upravit příspěvek</a>
+    </div>
+</article>
 
-    </style>
-</head>
-    <div class="container">
-        <p><a class="kls" n:href="Homepage:default"> Zpět na výpis příspěvků</a></p>
-
-        <article class="post" style="margin-top: 1rem;">
-            <div class="date">{$post->created_at|date:'j. n. Y'}</div>
-            <h1>{$post->title}</h1>
-            <div class="post-content" style="margin-top: 1rem;">
-                {$post->content}
-            </div>
-        </article>
-
-        <h2><strong>Komentáře</strong></h2>
+<section class="comments-section">
+    <h2>Komentáře</h2>
+    
+    {if count($comments) > 0}
         <div class="comments-list">
             {foreach $comments as $comment}
                 <div class="comment-item">
                     <div class="comment-meta">
-                        <b>{$comment->name}</b> <span style="color: var(--text-muted);">napsal:</span>
+                        <b>{$comment->name}</b>
+                        <span style="color: var(--text-light-gray);">napsal:</span>
                     </div>
                     <div class="comment-content">
                         {$comment->content}
@@ -42,12 +32,14 @@
                 </div>
             {/foreach}
         </div>
+    {else}
+        <p style="color: var(--text-light-gray); font-style: italic; text-align: center; padding: 2rem;">
+            Zatím zde nejsou žádné komentáře. Buďte první!
+        </p>
+    {/if}
 
-        <div class="form-box">
-            <h3>Přidat komentář</h3>
-            {control commentForm}
-        </div>
+    <div class="comment-box">
+        <h3>Přidat komentář</h3>
+        {control commentForm}
     </div>
-
-
-<a n:href="Edit:edit $post->id">Upravit příspěvek</a>
+</section>

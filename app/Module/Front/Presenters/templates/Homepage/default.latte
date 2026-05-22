@@ -1,5 +1,54 @@
 {block content}
-{foreach $posts as $post}
-	<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
-{/foreach}
-<a n:href="Edit:create">Napsat nový příspěvek</a>
+<div class="homepage-header">
+    <h1>Blog</h1>
+    <p style="color: var(--text-light-gray); font-size: 1.1rem; margin-bottom: 2rem;">
+        Objevujte zajímavé články a příspěvky
+    </p>
+    
+    <a class="btn" n:href="Edit:create">✍️ Napsat nový příspěvek</a>
+</div>
+
+{if count($posts) > 0}
+    <div class="posts-container">
+        {foreach $posts as $post}
+            <article class="post">
+                <h2>
+                    <a n:href="Post:show $post->id">{$post->title}</a>
+                </h2>
+                <div class="date">{$post->created_at|date:'j. n. Y'}</div>
+                <p style="color: var(--text-gray); margin-top: 1rem;">
+                    Kliknutím na název si přečtete celý příspěvek a komentáře...
+                </p>
+            </article>
+        {/foreach}
+    </div>
+{else}
+    <div class="empty-state">
+        <h2 style="text-align: center; color: var(--text-light-gray);">Zatím zde nejsou žádné příspěvky</h2>
+        <p style="text-align: center; color: var(--text-light-gray); margin-bottom: 2rem;">
+            Buďte první a <a n:href="Edit:create">napište nový příspěvek</a>
+        </p>
+    </div>
+{/if}
+
+<style>
+.homepage-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--bg-dark-gray);
+}
+
+.posts-container {
+    display: grid;
+    gap: 2rem;
+}
+
+.empty-state {
+    background: var(--bg-light);
+    padding: 3rem 2rem;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-gray);
+}
+</style>
