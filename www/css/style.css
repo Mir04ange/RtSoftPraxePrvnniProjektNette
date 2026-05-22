@@ -1,17 +1,14 @@
 /* --- Globální nastavení a barvy --- */
 :root {
-    --primary-red: #8b4444;
-    --primary-red-hover: #6b3434;
-    --bg-parchment: #e8e4d8;
-    --bg-light: #f5f1e8;
-    --text-dark: #1a1a1a;
-    --text-gray: #666666;
-    --text-light-gray: #999999;
-    --border-gray: #d0d0d0;
-    --corner-color: #a89968;
-    --radius: 0px;
-    --shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    --shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.2);
+    --color-red: #8b0000;
+    --color-red-hover: #a52a2a;
+    --color-white: #ffffff;
+    --color-off-white: #fcfaf2;
+    --color-gray-light: #f4f1e6;
+    --color-gray-medium: #dcd7c9;
+    --color-gray-dark: #3f3f3f;
+    --color-black: #1a1a1a;
+    --color-gold-muted: #b4a078;
 }
 
 * {
@@ -20,334 +17,156 @@
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
-    font-family: 'Georgia', 'Garamond', serif;
-    background: linear-gradient(135deg, var(--bg-parchment) 0%, var(--bg-light) 100%);
-    color: var(--text-dark);
-    line-height: 1.7;
-    padding: 0;
-    margin: 0;
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
+    background-color: #f8f5ed;
+    background-image: radial-gradient(#e5e0d0 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: var(--color-black);
+    line-height: 1.6;
+    padding: 40px 20px;
     min-height: 100vh;
 }
 
-/* --- Navigace --- */
-.navig {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding: 1.5rem 2rem;
-    background: transparent;
-    position: sticky;
-    bottom: 0;
-    box-shadow: none;
-    flex-wrap: wrap;
-}
-
-.navig li {
-    margin: 0;
-}
-
-.navig a {
-    color: var(--primary-red);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: visible;
-    border-bottom: 2px solid transparent;
-}
-
-.navig a:hover {
-    color: var(--primary-red-hover);
-    text-decoration: none;
-    border-bottom: 2px solid var(--primary-red);
-}
-
-/* --- Hlavní kontejner webu --- */
 .container {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 3rem 1.5rem 6rem 1.5rem;
+    padding-bottom: 100px;
 }
 
-/* --- Typografie a nadpisy --- */
-h1, h2, h3, h4 {
-    color: var(--text-dark);
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0px;
-    font-family: 'Georgia', 'Garamond', serif;
-}
-
+/* --- Nadpisy --- */
 h1 {
     font-size: 3rem;
-    line-height: 1.2;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
     font-weight: normal;
-    letter-spacing: 2px;
+    color: var(--color-black);
+}
+
+.homepage-header p {
+    text-align: center;
+    font-style: italic;
+    color: var(--color-gray-dark);
+    margin-bottom: 30px;
 }
 
 h2 {
-    font-size: 2rem;
-    margin-top: 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--primary-red);
-    position: relative;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
     font-weight: normal;
 }
 
-h3 {
-    font-size: 1.5rem;
-    color: var(--text-dark);
-    font-weight: normal;
-}
-
-h4 {
-    font-size: 1.1rem;
-    color: var(--text-gray);
-    font-weight: normal;
-}
-
-p {
-    color: var(--text-gray);
-    margin-bottom: 1rem;
-}
-
-a {
-    color: var(--primary-red);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: normal;
-}
-
-a:hover {
-    color: var(--primary-red-hover);
-    text-decoration: underline;
-}
-
-/* --- Karty (Články) s pergamentem a ozdobnými rohy --- */
+/* --- Karty příspěvků (Pergamen) --- */
 .post {
-    background: var(--bg-light);
-    padding: 2.5rem;
-    border-radius: 0;
-    box-shadow: var(--shadow);
-    border: none;
-    margin-bottom: 2rem;
-    transition: all 0.3s ease;
+    background-color: var(--color-off-white);
+    padding: 40px;
+    margin-bottom: 40px;
     position: relative;
-    border: 1px solid #d4cfc0;
+    box-shadow: 2px 5px 15px rgba(0,0,0,0.1);
+    border: 1px solid var(--color-gray-medium);
+    /* Zvlněný okraj efekt */
+    border-radius: 2px;
 }
 
-/* Ozdobné rohy - levý horní */
-.post::before {
-    content: '';
+/* Ozdobné rohy */
+.post::before, .post::after, 
+.post-bottom-left, .post-bottom-right {
+    content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--corner-color) 0%, transparent 100%);
-    clip-path: polygon(0 0, 100% 0, 0 100%);
+    width: 25px;
+    height: 25px;
+    border: 3px solid var(--color-gold-muted);
+    pointer-events: none;
 }
 
-/* Ozdobné rohy - pravý horní */
-.post::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(225deg, var(--corner-color) 0%, transparent 100%);
-    clip-path: polygon(100% 0, 100% 100%, 0 0);
-}
-
-/* Ozdobné rohy - levý dolní */
-.post-bottom-left {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(45deg, var(--corner-color) 0%, transparent 100%);
-    clip-path: polygon(0 100%, 100% 100%, 0 0);
-}
-
-/* Ozdobné rohy - pravý dolní */
-.post-bottom-right {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(315deg, var(--corner-color) 0%, transparent 100%);
-    clip-path: polygon(100% 100%, 100% 0, 0 100%);
-}
-
-.post:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-2px);
-}
+.post::before { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+.post::after { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
+.post-bottom-left { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
+.post-bottom-right { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
 
 .post h2 {
-    margin-top: 0;
-    border-bottom: 2px solid var(--primary-red);
-    padding-bottom: 0.75rem;
-    font-size: 1.8rem;
+    border-bottom: 1px solid var(--color-red);
+    padding-bottom: 10px;
+    margin-top: 5px;
 }
 
 .post h2 a {
-    color: var(--text-dark);
+    color: var(--color-black);
     text-decoration: none;
 }
 
 .post h2 a:hover {
-    color: var(--primary-red);
-    text-decoration: none;
+    color: var(--color-red);
 }
 
 .date {
-    font-size: 0.95rem;
-    color: var(--text-gray);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-gray-dark);
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* --- Tlačítka a odkazy --- */
+.btn, input[type="submit"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: var(--color-red);
+    border: 1px solid var(--color-red);
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.btn:hover, input[type="submit"]:hover {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
+.kls {
+    color: var(--color-black);
+    text-decoration: underline;
     font-style: italic;
 }
 
-.date::before {
-    content: '';
+/* --- Navigace --- */
+.navig {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 30px;
+    border: 1px solid var(--color-gray-medium);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
 }
 
-/* --- Komentáře --- */
-.comments-list {
-    margin-top: 2.5rem;
-    padding-top: 2rem;
-    border-top: 2px solid var(--bg-parchment);
-}
-
-.comment-box {
-    background: var(--bg-light);
-    padding: 2.5rem;
-    border-radius: 0;
-    box-shadow: var(--shadow);
-    border: 1px solid #d4cfc0;
-    margin-bottom: 2rem;
-    position: relative;
-}
-
-.comment-box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--corner-color) 0%, transparent 100%);
-    clip-path: polygon(0 0, 100% 0, 0 100%);
-}
-
-.comment-box::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(225deg, var(--corner-color) 0%, transparent 100%);
-    clip-path: polygon(100% 0, 100% 100%, 0 0);
-}
-
-.comment-item {
-    background: var(--bg-parchment);
-    padding: 1.5rem;
-    border-radius: 0;
-    border-left: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    margin-bottom: 1.5rem;
-    transition: all 0.3s ease;
-    border: 1px solid #d4cfc0;
-}
-
-.comment-item:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    transform: translateX(2px);
-}
-
-.comment-meta {
-    font-size: 0.9rem;
-    margin-bottom: 0.75rem;
+.navig ul {
+    list-style: none;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 20px;
 }
 
-.comment-meta b {
-    color: var(--text-dark);
-    font-weight: 600;
+.navig a {
+    color: var(--color-red);
+    text-decoration: none;
+    font-weight: bold;
 }
 
-.comment-content {
-    color: var(--text-gray);
-    line-height: 1.7;
+.navig a:hover {
+    text-decoration: underline;
 }
 
-/* --- Moderní Formuláře --- */
+/* --- Formuláře --- */
 .form-box {
-    background: var(--bg-light);
-    padding: 2.5rem;
-    border-radius: 0;
-    box-shadow: var(--shadow);
-    border: 1px solid #d4cfc0;
-    margin-bottom: 2rem;
-    position: relative;
-}
-
-.form-box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--corner-color) 0%, transparent 100%);
-    clip-path: polygon(0 0, 100% 0, 0 100%);
-}
-
-.form-box::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(225deg, var(--corner-color) 0%, transparent 100%);
-    clip-path: polygon(100% 0, 100% 100%, 0 0);
-}
-
-.form-box form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.form-box label {
-    font-weight: 600;
-    font-size: 0.95rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    color: var(--text-dark);
+    background: var(--color-white);
+    padding: 30px;
+    border: 1px solid var(--color-gray-medium);
+    margin-top: 30px;
 }
 
 .form-box input[type="text"],
@@ -355,245 +174,42 @@ a:hover {
 .form-box input[type="password"],
 .form-box textarea {
     width: 100%;
-    padding: 0.875rem 1rem;
-    border: 1px solid #d4cfc0;
-    border-radius: 0;
-    font-family: 'Georgia', 'Garamond', serif;
-    font-size: 1rem;
-    color: var(--text-dark);
-    transition: all 0.3s ease;
-    background-color: var(--bg-light);
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    border: 1px solid var(--color-gray-medium);
+    background: var(--color-off-white);
+    font-family: inherit;
 }
 
-.form-box input[type="text"]::placeholder,
-.form-box input[type="email"]::placeholder,
-.form-box input[type="password"]::placeholder,
-.form-box textarea::placeholder {
-    color: var(--text-light-gray);
-}
-
-.form-box input:focus,
-.form-box textarea:focus {
-    outline: none;
-    border-color: var(--primary-red);
-    box-shadow: inset 0 0 0 2px rgba(139, 68, 68, 0.1);
-    background-color: var(--bg-light);
-}
-
-.form-box textarea {
-    resize: vertical;
-    min-height: 140px;
-    font-family: 'Georgia', 'Garamond', serif;
-}
-
-/* --- Tlačítka --- */
-input[type="submit"],
-button,
-.btn {
-    background: var(--primary-red);
-    color: white;
-    border: none;
-    padding: 0.875rem 2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    align-self: flex-start;
-    text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 4px 12px rgba(139, 68, 68, 0.3);
-    font-family: 'Georgia', 'Garamond', serif;
-}
-
-input[type="submit"]:hover,
-button:hover,
-.btn:hover {
-    background: var(--primary-red-hover);
-    box-shadow: 0 6px 16px rgba(139, 68, 68, 0.4);
-}
-
-input[type="submit"]:active,
-button:active,
-.btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(139, 68, 68, 0.3);
-}
-
-/* --- Flash zprávy (upozornění) --- */
-.flash {
-    padding: 1.25rem 1.5rem;
-    border-radius: 0;
-    margin-bottom: 2rem;
-    font-weight: 500;
-    border-left: 4px solid;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    font-family: 'Georgia', 'Garamond', serif;
-}
-
-.flash.success {
-    background-color: #f0fdf4;
-    color: #166534;
-    border-left-color: #22c55e;
-}
-
-.flash.error {
-    background-color: #fef2f2;
-    color: var(--primary-red-hover);
-    border-left-color: var(--primary-red);
-}
-
-.flash.warning {
-    background-color: #fef3c7;
-    color: #92400e;
-    border-left-color: #f59e0b;
-}
-
-.flash.info {
-    background-color: #e0f2fe;
-    color: #0c4a6e;
-    border-left-color: #0ea5e9;
-}
-
-/* --- Vlastní styly pro navigační prvky --- */
-.kls {
-    color: var(--primary-red);
-    transition: all 0.4s ease;
-    border: 2px solid var(--primary-red);
-    padding: 0.75rem 1.5rem;
-    border-radius: 0;
-    display: inline-block;
-    font-weight: 600;
-    text-decoration: none;
-    font-family: 'Georgia', 'Garamond', serif;
-}
-
-.kls:hover {
-    text-decoration: none;
-    background-color: var(--primary-red);
-    color: var(--bg-light);
-    padding: 0.75rem 1.5rem;
-    border-radius: 0;
-    box-shadow: 0 6px 16px rgba(139, 68, 68, 0.3);
-}
-
-/* --- Alert styly z Bootstrapu --- */
+/* --- Flash zprávy --- */
 .alert {
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 2rem;
+    padding: 15px;
+    margin-bottom: 20px;
     border: 1px solid transparent;
-    border-radius: 0;
-    border-left: 4px solid;
-    font-family: 'Georgia', 'Garamond', serif;
+    text-align: center;
 }
 
-.alert-success {
-    color: #166534;
-    background-color: #f0fdf4;
-    border-color: #bbf7d0;
-    border-left-color: #22c55e;
+.alert-success { background: #e6ffed; border-color: #34d058; color: #22863a; }
+.alert-danger, .alert-error { background: #ffeef0; border-color: #f97583; color: #cb2431; }
+
+/* --- Dekorativní prvky z obrázku --- */
+.ink-pen {
+    display: block;
+    text-align: center;
+    font-size: 2rem;
+    margin: 20px 0;
 }
 
-.alert-danger,
-.alert-error {
-    color: var(--primary-red-hover);
-    background-color: #fef2f2;
-    border-color: #fecaca;
-    border-left-color: var(--primary-red);
+.post-content {
+    margin-top: 20px;
+    color: var(--color-gray-dark);
 }
 
-.alert-warning {
-    color: #92400e;
-    background-color: #fef3c7;
-    border-color: #fde68a;
-    border-left-color: #f59e0b;
+.comment-item {
+    border-bottom: 1px dashed var(--color-gray-medium);
+    padding: 15px 0;
 }
 
-.alert-info {
-    color: #0c4a6e;
-    background-color: #e0f2fe;
-    border-color: #bae6fd;
-    border-left-color: #0ea5e9;
-}
-
-/* --- Responsive Design --- */
-@media (max-width: 768px) {
-    .container {
-        padding: 2rem 1rem 6rem 1rem;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    .navig {
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    .navig a {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-    }
-
-    .post,
-    .comment-box,
-    .form-box {
-        padding: 1.5rem;
-    }
-
-    input[type="submit"],
-    button,
-    .btn {
-        padding: 0.75rem 1.5rem;
-        font-size: 0.95rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 1.5rem 1rem 5rem 1rem;
-    }
-
-    h1 {
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-    }
-
-    h2 {
-        font-size: 1.25rem;
-        margin-top: 1.5rem;
-    }
-
-    .navig {
-        gap: 0.5rem;
-        padding: 0.75rem;
-    }
-
-    .navig a {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.85rem;
-    }
-
-    .post,
-    .comment-box,
-    .form-box {
-        padding: 1.25rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .form-box textarea {
-        min-height: 100px;
-    }
-
-    input[type="submit"],
-    button,
-    .btn {
-        padding: 0.65rem 1.25rem;
-        font-size: 0.9rem;
-    }
+.comment-meta b {
+    color: var(--color-red);
 }

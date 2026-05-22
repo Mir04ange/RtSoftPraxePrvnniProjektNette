@@ -7,44 +7,34 @@
     <div class="post-bottom-left"></div>
     <div class="post-bottom-right"></div>
     
-    <div class="date">{$post->created_at|date:'j. n. Y'}</div>
+    <span class="date">{$post->created_at|date:'j. n. Y'}</span>
     <h1>{$post->title}</h1>
     <div class="post-content">
         {$post->content}
     </div>
     
-    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #d4cfc0;">
-        <a class="btn" n:href="Edit:edit $post->id">✏️ Upravit příspěvek</a>
+    <div style="margin-top: 30px; text-align: right;">
+        <a class="btn" n:href="Edit:edit $post->id">🖋️ Upravit</a>
     </div>
 </article>
 
 <section class="comments-section">
     <h2>Komentáře</h2>
     
-    {if count($comments) > 0}
-        <div class="comments-list">
-            {foreach $comments as $comment}
-                <div class="comment-item">
-                    <div class="comment-meta">
-                        <b>{$comment->name}</b>
-                        <span style="color: var(--text-light-gray);">napsal:</span>
-                    </div>
-                    <div class="comment-content">
-                        {$comment->content}
-                    </div>
+    <div class="comments-list">
+        {foreach $comments as $comment}
+            <div class="comment-item">
+                <div class="comment-meta">
+                    <b>{$comment->name}</b> napsal:
                 </div>
-            {/foreach}
-        </div>
-    {else}
-        <p style="color: var(--text-light-gray); font-style: italic; text-align: center; padding: 2rem;">
-            Zatím zde nejsou žádné komentáře. Buďte první!
-        </p>
-    {/if}
+                <div class="comment-content">
+                    {$comment->content}
+                </div>
+            </div>
+        {/foreach}
+    </div>
 
-    <div class="comment-box">
-        <div class="post-bottom-left"></div>
-        <div class="post-bottom-right"></div>
-        
+    <div class="form-box">
         <h3>Přidat komentář</h3>
         {control commentForm}
     </div>
