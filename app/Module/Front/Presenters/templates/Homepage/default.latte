@@ -1,17 +1,22 @@
 {block content}
 <div class="homepage-header">
     <h1>Blog</h1>
-    <p style="color: var(--text-light-gray); font-size: 1.1rem; margin-bottom: 2rem;">
-        Objevujte zajímavé články a příspěvky
+    <p style="color: var(--text-light-gray); font-size: 1.1rem; margin-bottom: 1.5rem; text-align: center;">
+        Objevujte zajímavé články a příspěvky 📝
     </p>
     
-    <a class="btn" n:href="Edit:create">✍️ Napsat nový příspěvek</a>
+    <div style="text-align: center;">
+        <a class="btn" n:href="Edit:create">🖊️ Napsat nový příspěvek 📖✏️</a>
+    </div>
 </div>
 
 {if count($posts) > 0}
     <div class="posts-container">
         {foreach $posts as $post}
             <article class="post">
+                <div class="post-bottom-left"></div>
+                <div class="post-bottom-right"></div>
+                
                 <h2>
                     <a n:href="Post:show $post->id">{$post->title}</a>
                 </h2>
@@ -24,7 +29,7 @@
     </div>
 {else}
     <div class="empty-state">
-        <h2 style="text-align: center; color: var(--text-light-gray);">Zatím zde nejsou žádné příspěvky</h2>
+        <h2 style="text-align: center; color: var(--text-light-gray); border: none;">Zatím zde nejsou žádné příspěvky</h2>
         <p style="text-align: center; color: var(--text-light-gray); margin-bottom: 2rem;">
             Buďte první a <a n:href="Edit:create">napište nový příspěvek</a>
         </p>
@@ -35,7 +40,8 @@
 .homepage-header {
     margin-bottom: 3rem;
     padding-bottom: 2rem;
-    border-bottom: 2px solid var(--bg-dark-gray);
+    border-bottom: none;
+    text-align: center;
 }
 
 .posts-container {
@@ -46,9 +52,9 @@
 .empty-state {
     background: var(--bg-light);
     padding: 3rem 2rem;
-    border-radius: var(--radius);
+    border-radius: 0;
     text-align: center;
     box-shadow: var(--shadow);
-    border: 1px solid var(--border-gray);
+    border: 1px solid #d4cfc0;
 }
 </style>

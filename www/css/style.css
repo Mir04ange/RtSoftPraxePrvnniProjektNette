@@ -1,18 +1,17 @@
 /* --- Globální nastavení a barvy --- */
 :root {
-    --primary-red: #dc2626;
-    --primary-red-hover: #b91c1c;
-    --primary-red-light: #fee2e2;
-    --bg-light: #ffffff;
-    --bg-gray: #f5f5f5;
-    --bg-dark-gray: #e5e5e5;
+    --primary-red: #8b4444;
+    --primary-red-hover: #6b3434;
+    --bg-parchment: #e8e4d8;
+    --bg-light: #f5f1e8;
     --text-dark: #1a1a1a;
     --text-gray: #666666;
     --text-light-gray: #999999;
     --border-gray: #d0d0d0;
-    --radius: 12px;
-    --shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.12);
+    --corner-color: #a89968;
+    --radius: 0px;
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    --shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.2);
 }
 
 * {
@@ -26,12 +25,13 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-gray);
+    font-family: 'Georgia', 'Garamond', serif;
+    background: linear-gradient(135deg, var(--bg-parchment) 0%, var(--bg-light) 100%);
     color: var(--text-dark);
-    line-height: 1.6;
+    line-height: 1.7;
     padding: 0;
     margin: 0;
+    min-height: 100vh;
 }
 
 /* --- Navigace --- */
@@ -41,10 +41,10 @@ body {
     justify-content: center;
     gap: 2rem;
     padding: 1.5rem 2rem;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    background: transparent;
     position: sticky;
     bottom: 0;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
     flex-wrap: wrap;
 }
 
@@ -53,36 +53,22 @@ body {
 }
 
 .navig a {
-    color: var(--bg-light);
+    color: var(--primary-red);
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
     padding: 0.75rem 1.5rem;
-    border-radius: var(--radius);
+    border-radius: 0;
     transition: all 0.3s ease;
     position: relative;
-    overflow: hidden;
-}
-
-.navig a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background-color: var(--primary-red);
-    transition: left 0.3s ease;
-    z-index: -1;
-}
-
-.navig a:hover::before {
-    left: 0;
+    overflow: visible;
+    border-bottom: 2px solid transparent;
 }
 
 .navig a:hover {
-    color: var(--bg-light);
+    color: var(--primary-red-hover);
     text-decoration: none;
+    border-bottom: 2px solid var(--primary-red);
 }
 
 /* --- Hlavní kontejner webu --- */
@@ -97,45 +83,38 @@ h1, h2, h3, h4 {
     color: var(--text-dark);
     margin-bottom: 1.5rem;
     font-weight: 700;
-    letter-spacing: -0.5px;
+    letter-spacing: 0px;
+    font-family: 'Georgia', 'Garamond', serif;
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     line-height: 1.2;
-    background: linear-gradient(135deg, var(--text-dark) 0%, var(--text-gray) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: normal;
+    letter-spacing: 2px;
 }
 
 h2 {
     font-size: 2rem;
-    margin-top: 2.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 3px solid var(--primary-red);
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-red);
     position: relative;
-}
-
-h2::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background-color: var(--primary-red);
+    font-weight: normal;
 }
 
 h3 {
     font-size: 1.5rem;
     color: var(--text-dark);
+    font-weight: normal;
 }
 
 h4 {
     font-size: 1.1rem;
     color: var(--text-gray);
+    font-weight: normal;
 }
 
 p {
@@ -147,7 +126,7 @@ a {
     color: var(--primary-red);
     text-decoration: none;
     transition: all 0.3s ease;
-    font-weight: 500;
+    font-weight: normal;
 }
 
 a:hover {
@@ -155,28 +134,75 @@ a:hover {
     text-decoration: underline;
 }
 
-/* --- Karty (Články) --- */
+/* --- Karty (Články) s pergamentem a ozdobnými rohy --- */
 .post {
     background: var(--bg-light);
-    padding: 2rem;
-    border-radius: var(--radius);
+    padding: 2.5rem;
+    border-radius: 0;
     box-shadow: var(--shadow);
-    border: 1px solid var(--border-gray);
+    border: none;
     margin-bottom: 2rem;
     transition: all 0.3s ease;
-    border-left: 5px solid var(--primary-red);
+    position: relative;
+    border: 1px solid #d4cfc0;
+}
+
+/* Ozdobné rohy - levý horní */
+.post::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--corner-color) 0%, transparent 100%);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+/* Ozdobné rohy - pravý horní */
+.post::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(225deg, var(--corner-color) 0%, transparent 100%);
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+}
+
+/* Ozdobné rohy - levý dolní */
+.post-bottom-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, var(--corner-color) 0%, transparent 100%);
+    clip-path: polygon(0 100%, 100% 100%, 0 0);
+}
+
+/* Ozdobné rohy - pravý dolní */
+.post-bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(315deg, var(--corner-color) 0%, transparent 100%);
+    clip-path: polygon(100% 100%, 100% 0, 0 100%);
 }
 
 .post:hover {
     box-shadow: var(--shadow-hover);
-    transform: translateY(-4px);
-    border-left-color: var(--primary-red-hover);
+    transform: translateY(-2px);
 }
 
 .post h2 {
     margin-top: 0;
-    border-bottom: none;
-    padding-bottom: 0;
+    border-bottom: 2px solid var(--primary-red);
+    padding-bottom: 0.75rem;
+    font-size: 1.8rem;
 }
 
 .post h2 a {
@@ -190,47 +216,72 @@ a:hover {
 }
 
 .date {
-    font-size: 0.9rem;
-    color: var(--text-light-gray);
+    font-size: 0.95rem;
+    color: var(--text-gray);
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-style: italic;
 }
 
 .date::before {
-    content: '📅';
+    content: '';
 }
 
 /* --- Komentáře --- */
 .comments-list {
     margin-top: 2.5rem;
     padding-top: 2rem;
-    border-top: 2px solid var(--bg-dark-gray);
+    border-top: 2px solid var(--bg-parchment);
 }
 
 .comment-box {
     background: var(--bg-light);
-    padding: 2rem;
-    border-radius: var(--radius);
+    padding: 2.5rem;
+    border-radius: 0;
     box-shadow: var(--shadow);
-    border: 1px solid var(--border-gray);
+    border: 1px solid #d4cfc0;
     margin-bottom: 2rem;
+    position: relative;
+}
+
+.comment-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--corner-color) 0%, transparent 100%);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.comment-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(225deg, var(--corner-color) 0%, transparent 100%);
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
 }
 
 .comment-item {
-    background: var(--bg-gray);
+    background: var(--bg-parchment);
     padding: 1.5rem;
-    border-radius: var(--radius);
-    border-left: 4px solid var(--primary-red);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 0;
+    border-left: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     margin-bottom: 1.5rem;
     transition: all 0.3s ease;
+    border: 1px solid #d4cfc0;
 }
 
 .comment-item:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateX(2px);
 }
 
 .comment-meta {
@@ -254,11 +305,34 @@ a:hover {
 /* --- Moderní Formuláře --- */
 .form-box {
     background: var(--bg-light);
-    padding: 2rem;
-    border-radius: var(--radius);
+    padding: 2.5rem;
+    border-radius: 0;
     box-shadow: var(--shadow);
-    border: 1px solid var(--border-gray);
+    border: 1px solid #d4cfc0;
     margin-bottom: 2rem;
+    position: relative;
+}
+
+.form-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--corner-color) 0%, transparent 100%);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.form-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(225deg, var(--corner-color) 0%, transparent 100%);
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
 }
 
 .form-box form {
@@ -282,9 +356,9 @@ a:hover {
 .form-box textarea {
     width: 100%;
     padding: 0.875rem 1rem;
-    border: 2px solid var(--border-gray);
-    border-radius: var(--radius);
-    font-family: inherit;
+    border: 1px solid #d4cfc0;
+    border-radius: 0;
+    font-family: 'Georgia', 'Garamond', serif;
     font-size: 1rem;
     color: var(--text-dark);
     transition: all 0.3s ease;
@@ -302,57 +376,59 @@ a:hover {
 .form-box textarea:focus {
     outline: none;
     border-color: var(--primary-red);
-    box-shadow: 0 0 0 4px var(--primary-red-light);
+    box-shadow: inset 0 0 0 2px rgba(139, 68, 68, 0.1);
     background-color: var(--bg-light);
 }
 
 .form-box textarea {
     resize: vertical;
     min-height: 140px;
-    font-family: inherit;
+    font-family: 'Georgia', 'Garamond', serif;
 }
 
 /* --- Tlačítka --- */
 input[type="submit"],
 button,
 .btn {
-    background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-red-hover) 100%);
+    background: var(--primary-red);
     color: white;
     border: none;
     padding: 0.875rem 2rem;
     font-size: 1rem;
     font-weight: 600;
-    border-radius: var(--radius);
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.3s ease;
     align-self: flex-start;
     text-decoration: none;
     display: inline-block;
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    box-shadow: 0 4px 12px rgba(139, 68, 68, 0.3);
+    font-family: 'Georgia', 'Garamond', serif;
 }
 
 input[type="submit"]:hover,
 button:hover,
 .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+    background: var(--primary-red-hover);
+    box-shadow: 0 6px 16px rgba(139, 68, 68, 0.4);
 }
 
 input[type="submit"]:active,
 button:active,
 .btn:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+    box-shadow: 0 2px 8px rgba(139, 68, 68, 0.3);
 }
 
 /* --- Flash zprávy (upozornění) --- */
 .flash {
     padding: 1.25rem 1.5rem;
-    border-radius: var(--radius);
+    border-radius: 0;
     margin-bottom: 2rem;
     font-weight: 500;
     border-left: 4px solid;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    font-family: 'Georgia', 'Garamond', serif;
 }
 
 .flash.success {
@@ -362,7 +438,7 @@ button:active,
 }
 
 .flash.error {
-    background-color: var(--primary-red-light);
+    background-color: #fef2f2;
     color: var(--primary-red-hover);
     border-left-color: var(--primary-red);
 }
@@ -381,23 +457,24 @@ button:active,
 
 /* --- Vlastní styly pro navigační prvky --- */
 .kls {
-    color: var(--text-dark);
+    color: var(--primary-red);
     transition: all 0.4s ease;
-    border: 2px solid var(--text-dark);
+    border: 2px solid var(--primary-red);
     padding: 0.75rem 1.5rem;
-    border-radius: var(--radius);
+    border-radius: 0;
     display: inline-block;
     font-weight: 600;
     text-decoration: none;
+    font-family: 'Georgia', 'Garamond', serif;
 }
 
 .kls:hover {
     text-decoration: none;
-    background-color: var(--text-dark);
+    background-color: var(--primary-red);
     color: var(--bg-light);
     padding: 0.75rem 1.5rem;
-    border-radius: var(--radius);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    box-shadow: 0 6px 16px rgba(139, 68, 68, 0.3);
 }
 
 /* --- Alert styly z Bootstrapu --- */
@@ -405,8 +482,9 @@ button:active,
     padding: 1.25rem 1.5rem;
     margin-bottom: 2rem;
     border: 1px solid transparent;
-    border-radius: var(--radius);
+    border-radius: 0;
     border-left: 4px solid;
+    font-family: 'Georgia', 'Garamond', serif;
 }
 
 .alert-success {
@@ -419,7 +497,7 @@ button:active,
 .alert-danger,
 .alert-error {
     color: var(--primary-red-hover);
-    background-color: var(--primary-red-light);
+    background-color: #fef2f2;
     border-color: #fecaca;
     border-left-color: var(--primary-red);
 }
@@ -445,7 +523,7 @@ button:active,
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
 
     h2 {
@@ -482,7 +560,7 @@ button:active,
     }
 
     h1 {
-        font-size: 1.75rem;
+        font-size: 2rem;
         margin-bottom: 1.5rem;
     }
 

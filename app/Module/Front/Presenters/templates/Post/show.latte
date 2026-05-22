@@ -4,13 +4,16 @@
 </div>
 
 <article class="post">
+    <div class="post-bottom-left"></div>
+    <div class="post-bottom-right"></div>
+    
     <div class="date">{$post->created_at|date:'j. n. Y'}</div>
     <h1>{$post->title}</h1>
     <div class="post-content">
         {$post->content}
     </div>
     
-    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid var(--bg-dark-gray);">
+    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #d4cfc0;">
         <a class="btn" n:href="Edit:edit $post->id">✏️ Upravit příspěvek</a>
     </div>
 </article>
@@ -39,6 +42,9 @@
     {/if}
 
     <div class="comment-box">
+        <div class="post-bottom-left"></div>
+        <div class="post-bottom-right"></div>
+        
         <h3>Přidat komentář</h3>
         {control commentForm}
     </div>
