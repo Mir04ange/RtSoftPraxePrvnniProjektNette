@@ -1,19 +1,9 @@
 {block content}
-<div class="auth-container">
+<div class="auth-container" style="max-width: 600px; margin: 0 auto;">
     <h1 n:block=title>Přihlášení</h1>
-    <p style="color: var(--text-light-gray); margin-bottom: 2rem; text-align: center;">Přihlaste se do svého účtu a začněte psát články</p>
+    <p style="text-align: center; color: var(--color-gray-dark); margin-bottom: 30px;">Přihlaste se do svého účtu a začněte psát články</p>
     
-    <div class="form-box" style="max-width: 500px;">
-        <div class="post-bottom-left"></div>
-        <div class="post-bottom-right"></div>
-        
+    <div class="form-box">
         {control signInForm}
     </div>
 </div>
-
-<style>
-.auth-container {
-    max-width: 600px;
-    margin: 0 auto;
-}
-</style>

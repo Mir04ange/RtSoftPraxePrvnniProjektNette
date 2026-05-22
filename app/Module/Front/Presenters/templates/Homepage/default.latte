@@ -3,8 +3,8 @@
     <h1>Blog</h1>
     <p>Objevujte zajímavé články a příspěvky 📝</p>
     
-    <div style="text-align: center;">
-        <a class="btn" n:href="Edit:create">🖋️ Napsat nový příspěvek</a>
+    <div style="text-align: center; margin-bottom: 30px;">
+        <a class="btn" n:href="Edit:create">🖋️ Napsat nový příspěvek 📖✏️</a>
     </div>
 </div>
 
@@ -13,6 +13,9 @@
         <article class="post">
             <div class="post-bottom-left"></div>
             <div class="post-bottom-right"></div>
+            <div class="post-icon">
+                {if $iterator->counter == 1}⊕{elseif $iterator->counter == 2}✦{else}📖{/if}
+            </div>
             
             <h2>
                 <a n:href="Post:show $post->id">{$post->title}</a>

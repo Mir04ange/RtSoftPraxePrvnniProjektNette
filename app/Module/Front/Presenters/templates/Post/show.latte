@@ -1,5 +1,5 @@
 {block content}
-<div class="post-header">
+<div class="post-header" style="margin-bottom: 30px;">
     <a class="kls" n:href="Homepage:default">← Zpět na výpis příspěvků</a>
 </div>
 
@@ -8,13 +8,13 @@
     <div class="post-bottom-right"></div>
     
     <span class="date">{$post->created_at|date:'j. n. Y'}</span>
-    <h1>{$post->title}</h1>
+    <h1 style="text-align: left; margin-bottom: 20px;">{$post->title}</h1>
     <div class="post-content">
         {$post->content}
     </div>
     
     <div style="margin-top: 30px; text-align: right;">
-        <a class="btn" n:href="Edit:edit $post->id">🖋️ Upravit</a>
+        <a class="btn" n:href="Edit:edit $post->id">✏️ Upravit</a>
     </div>
 </article>
 

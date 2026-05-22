@@ -1,14 +1,13 @@
-/* --- Globální nastavení a barvy --- */
+/* --- Globální nastavení --- */
 :root {
-    --color-red: #8b0000;
-    --color-red-hover: #a52a2a;
+    --color-red: #8b4545;
     --color-white: #ffffff;
-    --color-off-white: #fcfaf2;
-    --color-gray-light: #f4f1e6;
-    --color-gray-medium: #dcd7c9;
-    --color-gray-dark: #3f3f3f;
+    --color-cream: #e8e4d8;
+    --color-gray-light: #f5f1e8;
+    --color-gray-medium: #ddd9cc;
+    --color-gray-dark: #3a3a3a;
     --color-black: #1a1a1a;
-    --color-gold-muted: #b4a078;
+    --color-gold: #a89968;
 }
 
 * {
@@ -18,76 +17,155 @@
 }
 
 body {
-    font-family: 'Georgia', 'Times New Roman', Times, serif;
-    background-color: #f8f5ed;
-    background-image: radial-gradient(#e5e0d0 1px, transparent 1px);
-    background-size: 20px 20px;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: linear-gradient(135deg, #e8e4d8 0%, #f5f1e8 100%);
     color: var(--color-black);
     line-height: 1.6;
-    padding: 40px 20px;
+    padding: 40px 20px 120px 20px;
     min-height: 100vh;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    padding-bottom: 100px;
 }
 
 /* --- Nadpisy --- */
 h1 {
-    font-size: 3rem;
+    font-size: 3.2rem;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-weight: normal;
     color: var(--color-black);
+    letter-spacing: 1px;
+}
+
+.homepage-header {
+    text-align: center;
+    margin-bottom: 50px;
 }
 
 .homepage-header p {
-    text-align: center;
     font-style: italic;
     color: var(--color-gray-dark);
+    font-size: 1rem;
     margin-bottom: 30px;
 }
 
 h2 {
     font-size: 1.8rem;
-    margin-bottom: 15px;
+    font-weight: bold;
+    color: var(--color-black);
+    margin-bottom: 0;
+}
+
+h3 {
+    font-size: 1.2rem;
     font-weight: normal;
+    color: var(--color-gray-dark);
 }
 
-/* --- Karty příspěvků (Pergamen) --- */
+/* --- Pergamen karty s přesnými detaily --- */
 .post {
-    background-color: var(--color-off-white);
+    background: var(--color-white);
     padding: 40px;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     position: relative;
-    box-shadow: 2px 5px 15px rgba(0,0,0,0.1);
-    border: 1px solid var(--color-gray-medium);
-    /* Zvlněný okraj efekt */
-    border-radius: 2px;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    border: 1px solid #e0dcd0;
+    /* Zvlněný efekt okrajů */
+    clip-path: polygon(
+        0% 2%, 1% 1%, 2% 2%, 3% 1%, 4% 2%, 5% 1%, 6% 2%, 7% 1%, 8% 2%, 9% 1%, 10% 2%,
+        11% 1%, 12% 2%, 13% 1%, 14% 2%, 15% 1%, 16% 2%, 17% 1%, 18% 2%, 19% 1%, 20% 2%,
+        21% 1%, 22% 2%, 23% 1%, 24% 2%, 25% 1%, 26% 2%, 27% 1%, 28% 2%, 29% 1%, 30% 2%,
+        31% 1%, 32% 2%, 33% 1%, 34% 2%, 35% 1%, 36% 2%, 37% 1%, 38% 2%, 39% 1%, 40% 2%,
+        41% 1%, 42% 2%, 43% 1%, 44% 2%, 45% 1%, 46% 2%, 47% 1%, 48% 2%, 49% 1%, 50% 2%,
+        51% 1%, 52% 2%, 53% 1%, 54% 2%, 55% 1%, 56% 2%, 57% 1%, 58% 2%, 59% 1%, 60% 2%,
+        61% 1%, 62% 2%, 63% 1%, 64% 2%, 65% 1%, 66% 2%, 67% 1%, 68% 2%, 69% 1%, 70% 2%,
+        71% 1%, 72% 2%, 73% 1%, 74% 2%, 75% 1%, 76% 2%, 77% 1%, 78% 2%, 79% 1%, 80% 2%,
+        81% 1%, 82% 2%, 83% 1%, 84% 2%, 85% 1%, 86% 2%, 87% 1%, 88% 2%, 89% 1%, 90% 2%,
+        91% 1%, 92% 2%, 93% 1%, 94% 2%, 95% 1%, 96% 2%, 97% 1%, 98% 2%, 99% 1%, 100% 2%,
+        100% 3%, 99% 4%, 100% 5%, 99% 6%, 100% 7%, 99% 8%, 100% 9%, 99% 10%, 100% 11%,
+        99% 12%, 100% 13%, 99% 14%, 100% 15%, 99% 16%, 100% 17%, 99% 18%, 100% 19%,
+        99% 20%, 100% 21%, 99% 22%, 100% 23%, 99% 24%, 100% 25%, 99% 26%, 100% 27%,
+        99% 28%, 100% 29%, 99% 30%, 100% 31%, 99% 32%, 100% 33%, 99% 34%, 100% 35%,
+        99% 36%, 100% 37%, 99% 38%, 100% 39%, 99% 40%, 100% 41%, 99% 42%, 100% 43%,
+        99% 44%, 100% 45%, 99% 46%, 100% 47%, 99% 48%, 100% 49%, 99% 50%, 100% 51%,
+        99% 52%, 100% 53%, 99% 54%, 100% 55%, 99% 56%, 100% 57%, 99% 58%, 100% 59%,
+        99% 60%, 100% 61%, 99% 62%, 100% 63%, 99% 64%, 100% 65%, 99% 66%, 100% 67%,
+        99% 68%, 100% 69%, 99% 70%, 100% 71%, 99% 72%, 100% 73%, 99% 74%, 100% 75%,
+        99% 76%, 100% 77%, 99% 78%, 100% 79%, 99% 80%, 100% 81%, 99% 82%, 100% 83%,
+        99% 84%, 100% 85%, 99% 86%, 100% 87%, 99% 88%, 100% 89%, 99% 90%, 100% 91%,
+        99% 92%, 100% 93%, 99% 94%, 100% 95%, 99% 96%, 100% 97%, 99% 98%, 100% 100%,
+        98% 99%, 97% 100%, 96% 99%, 95% 100%, 94% 99%, 93% 100%, 92% 99%, 91% 100%,
+        90% 99%, 89% 100%, 88% 99%, 87% 100%, 86% 99%, 85% 100%, 84% 99%, 83% 100%,
+        82% 99%, 81% 100%, 80% 99%, 79% 100%, 78% 99%, 77% 100%, 76% 99%, 75% 100%,
+        74% 99%, 73% 100%, 72% 99%, 71% 100%, 70% 99%, 69% 100%, 68% 99%, 67% 100%,
+        66% 99%, 65% 100%, 64% 99%, 63% 100%, 62% 99%, 61% 100%, 60% 99%, 59% 100%,
+        58% 99%, 57% 100%, 56% 99%, 55% 100%, 54% 99%, 53% 100%, 52% 99%, 51% 100%,
+        50% 99%, 49% 100%, 48% 99%, 47% 100%, 46% 99%, 45% 100%, 44% 99%, 43% 100%,
+        42% 99%, 41% 100%, 40% 99%, 39% 100%, 38% 99%, 37% 100%, 36% 99%, 35% 100%,
+        34% 99%, 33% 100%, 32% 99%, 31% 100%, 30% 99%, 29% 100%, 28% 99%, 27% 100%,
+        26% 99%, 25% 100%, 24% 99%, 23% 100%, 22% 99%, 21% 100%, 20% 99%, 19% 100%,
+        18% 99%, 17% 100%, 16% 99%, 15% 100%, 14% 99%, 13% 100%, 12% 99%, 11% 100%,
+        10% 99%, 9% 100%, 8% 99%, 7% 100%, 6% 99%, 5% 100%, 4% 99%, 3% 100%, 2% 99%, 1% 100%, 0% 98%
+    );
 }
 
-/* Ozdobné rohy */
-.post::before, .post::after, 
-.post-bottom-left, .post-bottom-right {
-    content: "";
+/* Ozdobné rohy - přesné */
+.post::before {
+    content: '';
     position: absolute;
-    width: 25px;
-    height: 25px;
-    border: 3px solid var(--color-gold-muted);
+    top: 15px;
+    left: 15px;
+    width: 35px;
+    height: 35px;
+    border-top: 3px solid var(--color-gold);
+    border-left: 3px solid var(--color-gold);
     pointer-events: none;
 }
 
-.post::before { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
-.post::after { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
-.post-bottom-left { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
-.post-bottom-right { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+.post::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    border-top: 3px solid var(--color-gold);
+    border-right: 3px solid var(--color-gold);
+    pointer-events: none;
+}
+
+.post-bottom-left {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    width: 35px;
+    height: 35px;
+    border-bottom: 3px solid var(--color-gold);
+    border-left: 3px solid var(--color-gold);
+    pointer-events: none;
+}
+
+.post-bottom-right {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    border-bottom: 3px solid var(--color-gold);
+    border-right: 3px solid var(--color-gold);
+    pointer-events: none;
+}
 
 .post h2 {
-    border-bottom: 1px solid var(--color-red);
-    padding-bottom: 10px;
-    margin-top: 5px;
+    border-bottom: 2px solid var(--color-red);
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+    font-size: 1.9rem;
 }
 
 .post h2 a {
@@ -99,37 +177,44 @@ h2 {
     color: var(--color-red);
 }
 
+.post-icon {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2.5rem;
+}
+
 .date {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--color-gray-dark);
     margin-bottom: 15px;
     display: block;
+    font-style: italic;
 }
 
-/* --- Tlačítka a odkazy --- */
-.btn, input[type="submit"] {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: transparent;
-    color: var(--color-red);
-    border: 1px solid var(--color-red);
-    text-decoration: none;
-    font-family: inherit;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s;
+.post-preview {
+    color: var(--color-gray-dark);
     margin-top: 10px;
 }
 
-.btn:hover, input[type="submit"]:hover {
-    background-color: var(--color-red);
-    color: var(--color-white);
+/* --- Tlačítka --- */
+.btn, input[type="submit"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background: transparent;
+    color: var(--color-red);
+    border: 2px solid var(--color-red);
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
 }
 
-.kls {
-    color: var(--color-black);
-    text-decoration: underline;
-    font-style: italic;
+.btn:hover, input[type="submit"]:hover {
+    background: var(--color-red);
+    color: var(--color-white);
 }
 
 /* --- Navigace --- */
@@ -138,23 +223,25 @@ h2 {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px 30px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 30px;
     border: 1px solid var(--color-gray-medium);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    border-radius: 4px;
 }
 
 .navig ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 30px;
 }
 
 .navig a {
     color: var(--color-red);
     text-decoration: none;
     font-weight: bold;
+    font-size: 0.95rem;
 }
 
 .navig a:hover {
@@ -165,8 +252,32 @@ h2 {
 .form-box {
     background: var(--color-white);
     padding: 30px;
-    border: 1px solid var(--color-gray-medium);
+    border: 1px solid #e0dcd0;
     margin-top: 30px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-box::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 30px;
+    height: 30px;
+    border-top: 3px solid var(--color-gold);
+    border-left: 3px solid var(--color-gold);
+}
+
+.form-box::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    border-top: 3px solid var(--color-gold);
+    border-right: 3px solid var(--color-gold);
 }
 
 .form-box input[type="text"],
@@ -177,8 +288,16 @@ h2 {
     padding: 10px;
     margin: 10px 0 20px 0;
     border: 1px solid var(--color-gray-medium);
-    background: var(--color-off-white);
+    background: var(--color-white);
     font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.form-box label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--color-black);
 }
 
 /* --- Flash zprávy --- */
@@ -187,24 +306,13 @@ h2 {
     margin-bottom: 20px;
     border: 1px solid transparent;
     text-align: center;
+    border-radius: 3px;
 }
 
 .alert-success { background: #e6ffed; border-color: #34d058; color: #22863a; }
 .alert-danger, .alert-error { background: #ffeef0; border-color: #f97583; color: #cb2431; }
 
-/* --- Dekorativní prvky z obrázku --- */
-.ink-pen {
-    display: block;
-    text-align: center;
-    font-size: 2rem;
-    margin: 20px 0;
-}
-
-.post-content {
-    margin-top: 20px;
-    color: var(--color-gray-dark);
-}
-
+/* --- Komentáře --- */
 .comment-item {
     border-bottom: 1px dashed var(--color-gray-medium);
     padding: 15px 0;
@@ -212,4 +320,23 @@ h2 {
 
 .comment-meta b {
     color: var(--color-red);
+    font-weight: bold;
+}
+
+.kls {
+    color: var(--color-black);
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.kls:hover {
+    color: var(--color-red);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    .post { padding: 25px; }
+    .navig { bottom: 10px; padding: 10px 20px; }
+    .navig ul { gap: 15px; }
 }
