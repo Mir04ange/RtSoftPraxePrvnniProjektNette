@@ -9,13 +9,20 @@ use Nette;
 final class CommentRepository
 {
     public function __construct(
-        private Nette\Database\Explorer $database,
+        public Nette\Database\Explorer $database,
     ) {
     }
 
-    public function findAll()
+    private function findAll()
     {
         return $this->database->table('comments');
+    }
+
+    public function findCommentsByPostId(int $postId)
+    {
+        return $this->findAll()
+            ->where('post_id', $postId)
+            ->order('created_at DESC'); // Seřadí od nejnovějších
     }
 
     public function insert(iterable $data)
@@ -23,8 +30,12 @@ final class CommentRepository
         return $this->findAll()->insert($data);
     }
 
-    public function findByPost(int $postId)
+    public function delete(int $id): void
     {
-        return $this->findAll()->where('post_id', $postId)->order('created_at');
+        $comment = $this->findAll()->get($id);
+        if ($comment) {
+            $comment->delete();
+        }
     }
+
 }

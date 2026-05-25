@@ -20,4 +20,8 @@ services:
     ports:
       - "3310:3306"
     volumes:
-      - ./volumes/mariadb/:/var/lib/mysql
+      - mariadb-development-data:/var/lib/mysql
+      - ./mariadb-init:/docker-entrypoint-initdb.d:ro
+
+volumes:
+  mariadb-development-data:

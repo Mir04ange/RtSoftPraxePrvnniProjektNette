@@ -11,7 +11,8 @@ final class PostRepository
 {
     public function __construct(
         public Nette\Database\Explorer $database,
-    ) {
+    )
+    {
     }
 
     public function findAll()
@@ -21,7 +22,7 @@ final class PostRepository
 
     public function findPublicPosts()
     {
-        return $this->findAll()->order('created_at DESC');
+        return $this->findAll()->order('created_at ASC');
     }
 
     public function getById(int $id)
@@ -34,6 +35,7 @@ final class PostRepository
         return $this->findAll()->insert($data);
     }
 
+
     public function update(int $id, iterable $data)
     {
         $post = $this->getById($id);
@@ -42,4 +44,13 @@ final class PostRepository
         }
         return $post;
     }
+
+    public function delete(int $id): void
+    {
+        $post = $this->getById($id);
+        if ($post) {
+            $post->delete();
+        }
+    }
 }
+
