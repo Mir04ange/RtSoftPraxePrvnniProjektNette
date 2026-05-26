@@ -1,6 +1,6 @@
 {block content}
 <div class="post-header" style="margin-bottom: 30px;">
-    <a class="kls" n:href="Homepage:default">← Zpět na výpis příspěvků</a>
+    <a style="text-decoration: none; font-family: Dialog; color:snow;  " class="kls" n:href="Homepage:default">← Zpět na výpis příspěvků</a>
 </div>
 
 <article class="post">
@@ -22,15 +22,11 @@
     <h2>Komentáře</h2>
     
     <div class="comments-list">
+
         {foreach $comments as $comment}
-            <div class="comment-item">
-                <div class="comment-meta">
-                    <b>{$comment->name}</b> napsal:
-                </div>
-                <div class="comment-content">
-                    {$comment->content}
-                </div>
-            </div>
+
+
+
         {/foreach}
     </div>
 

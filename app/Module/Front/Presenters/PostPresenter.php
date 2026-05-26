@@ -26,7 +26,7 @@ final class PostPresenter extends Nette\Application\UI\Presenter
         }
 
         $this->template->post = $post;
-        $this->template->comments = $this->CommentRepository->findByPost($id);
+       $this->template->comments = $this->commentRepository->findByPost($id);
     }
 
     protected function createComponentCommentForm(): Form

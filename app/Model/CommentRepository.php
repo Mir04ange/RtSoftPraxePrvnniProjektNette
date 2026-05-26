@@ -38,4 +38,13 @@ final class CommentRepository
         }
     }
 
+    public function findByPost(int $id)
+    {
+        if ($comment = $this->findAll()->get($id)) {
+            return $comment;
+        }
+        return null;
+
+    }
+
 }
