@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Module\Front\Presenters;
 
 use Nette;
@@ -21,13 +24,15 @@ final class SignPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-    private function signInFormSucceeded(Form $form, \stdClass $data): void
+    private function signInFormSucceeded(Form $form, mixed $data): void
     {
         try {
-            $this->getUser()->login($data->username, $data->password);
+            $this->getUser()->login(
+                $this->getStringValue($data, 'username'),
+                $this->getStringValue($data, 'password'),
+            );
             $this->redirect('Homepage:default');
-
-        } catch (Nette\Security\AuthenticationException $e) {
+        } catch (Nette\Security\AuthenticationException) {
             $form->addError('Nesprávné přihlašovací jméno nebo heslo.');
         }
     }
@@ -35,33 +40,28 @@ final class SignPresenter extends Nette\Application\UI\Presenter
     protected function createComponentSignOutForm(): Form
     {
         $form = new Form;
-
         $form->addSubmit('send', 'Odhlásit');
-
-        $form->onSuccess[] = [$this, 'signOutFormSucceeded'];
+        $form->onSuccess[] = $this->signOutFormSucceeded(...);
 
         return $form;
     }
 
-    public function signOutFormSucceeded(Form $form, \stdClass $data): void
+    public function signOutFormSucceeded(Form $form, mixed $data): void
     {
         $this->getUser()->logout();
-
         $this->flashMessage('Byli jste odhlášeni.');
-
         $this->redirect('Homepage:default');
     }
 
+    private function getStringValue(mixed $data, string $key): string
+    {
+        if (!is_object($data)) {
+            return '';
+        }
 
+        $values = (array) $data;
+        $value = $values[$key] ?? '';
 
-
-
-
-
-
-
-
-
-
+        return is_scalar($value) ? (string) $value : '';
+    }
 }
-

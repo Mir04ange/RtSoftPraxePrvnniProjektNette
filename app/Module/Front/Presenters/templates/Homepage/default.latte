@@ -1,10 +1,10 @@
 {block content}
 <div class="homepage-header">
     <h1>Blog</h1>
-    <p>Objevujte zajímavé články a příspěvky 📝</p>
-    
+    <p>Objevujte zajímavé články a příspěvky.</p>
+
     <div style="text-align: center; margin-bottom: 30px;">
-        <a class="btn" n:href="Edit:create">🖋️ Napsat nový příspěvek 📖✏️</a>
+        <a class="btn" n:href="Edit:create">Napsat nový příspěvek</a>
     </div>
 </div>
 
@@ -14,16 +14,23 @@
             <div class="post-bottom-left"></div>
             <div class="post-bottom-right"></div>
             <div class="post-icon">
-                {if $iterator->counter == 1}⊕{elseif $iterator->counter == 2}✦{else}📖{/if}
+                {if $iterator->counter === 1}⊕{elseif $iterator->counter === 2}✦{else}📖{/if}
             </div>
-            
+
             <h2>
                 <a n:href="Post:show $post->id">{$post->title}</a>
             </h2>
-            <span class="date">{$post->created_at|date:'j. n. Y'}</span>
+            <span class="date">{$post->createdAt|date:'j. n. Y'}</span>
             <p class="post-preview">
-                Kliknutím na název si přečtete celý příspěvek a komentáře...
+                Kliknutím na název si přečtete celý příspěvek a komentáře.
+            </p>
+            <p>
+                <a n:href="Edit:edit $post->id">Upravit</a>
+                |
+                <a n:href="Edit:delete $post->id" onclick="return confirm('Opravdu chcete smazat tento příspěvek včetně komentářů?')">Smazat</a>
             </p>
         </article>
+    {else}
+        <p>Zatím nebyl vytvořen žádný příspěvek.</p>
     {/foreach}
 </div>

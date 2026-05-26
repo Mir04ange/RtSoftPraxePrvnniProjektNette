@@ -1,32 +1,45 @@
 {block content}
 <div class="post-header" style="margin-bottom: 30px;">
-    <a style="text-decoration: none; font-family: Dialog; color:snow;  " class="kls" n:href="Homepage:default">← Zpět na výpis příspěvků</a>
+    <a style="text-decoration: none; font-family: Dialog; color:snow;" class="kls" n:href="Homepage:default">← Zpět na výpis příspěvků</a>
 </div>
 
 <article class="post">
     <div class="post-bottom-left"></div>
     <div class="post-bottom-right"></div>
-    
-    <span class="date">{$post->created_at|date:'j. n. Y'}</span>
+
+    <span class="date">{$post->createdAt|date:'j. n. Y'}</span>
     <h1 style="text-align: left; margin-bottom: 20px;">{$post->title}</h1>
     <div class="post-content">
         {$post->content}
     </div>
-    
+
     <div style="margin-top: 30px; text-align: right;">
-        <a class="btn" n:href="Edit:edit $post->id">✏️ Upravit</a>
+        <a class="btn" n:href="Edit:edit $post->id">Upravit</a>
+        <a class="btn" n:href="Edit:delete $post->id" onclick="return confirm('Opravdu chcete smazat tento příspěvek včetně komentářů?')">Smazat</a>
     </div>
 </article>
 
 <section class="comments-section">
     <h2>Komentáře</h2>
-    
+
     <div class="comments-list">
-
         {foreach $comments as $comment}
-
-
-
+            <article class="comment" style="margin-bottom: 20px; padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.25);">
+                <p>
+                    <strong>
+                        <a href="mailto:{$comment->email}" n:tag-if="$comment->email">{$comment->name}</a>
+                    </strong>
+                    <span class="date">{$comment->createdAt|date:'j. n. Y H:i'}</span>
+                </p>
+                <div>{$comment->content}</div>
+                <p style="margin-top: 10px;">
+                    <a n:href="Post:editComment $post->id, $comment->id">Upravit komentář</a>
+                    |
+                    <a n:href="Post:deleteComment $post->id, $comment->id" onclick="return confirm('Opravdu chcete smazat tento komentář?')">Smazat komentář</a>
+                </p>
+            </article>
+        {else}
+            <p>Zatím zde nejsou žádné komentáře.</p>
         {/foreach}
     </div>
 

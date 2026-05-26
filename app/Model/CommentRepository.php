@@ -4,47 +4,19 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use Nette;
+use Nette\Database\Table\Selection;
 
-final class CommentRepository
+final class CommentRepository extends BaseRepository
 {
-    public function __construct(
-        public Nette\Database\Explorer $database,
-    ) {
-    }
-
-    private function findAll()
+    protected function getTableName(): string
     {
-        return $this->database->table('comments');
+        return 'comments';
     }
 
-    public function findCommentsByPostId(int $postId)
+    public function findByPostId(int $postId): Selection
     {
         return $this->findAll()
             ->where('post_id', $postId)
-            ->order('created_at DESC'); // Seřadí od nejnovějších
+            ->order('created_at DESC');
     }
-
-    public function insert(iterable $data)
-    {
-        return $this->findAll()->insert($data);
-    }
-
-    public function delete(int $id): void
-    {
-        $comment = $this->findAll()->get($id);
-        if ($comment) {
-            $comment->delete();
-        }
-    }
-
-    public function findByPost(int $id)
-    {
-        if ($comment = $this->findAll()->get($id)) {
-            return $comment;
-        }
-        return null;
-
-    }
-
 }

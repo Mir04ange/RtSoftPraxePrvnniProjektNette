@@ -4,53 +4,17 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use Nette;
 use Nette\Database\Table\Selection;
 
-final class PostRepository
+final class PostRepository extends BaseRepository
 {
-    public function __construct(
-        public Nette\Database\Explorer $database,
-    )
+    protected function getTableName(): string
     {
+        return 'posts';
     }
 
-    public function findAll()
+    public function findPublicPosts(): Selection
     {
-        return $this->database->table('posts');
-    }
-
-    public function findPublicPosts()
-    {
-        return $this->findAll()->order('created_at ASC');
-    }
-
-    public function getById(int $id)
-    {
-        return $this->findAll()->get($id);
-    }
-
-    public function insert(iterable $data)
-    {
-        return $this->findAll()->insert($data);
-    }
-
-
-    public function update(int $id, iterable $data)
-    {
-        $post = $this->getById($id);
-        if ($post) {
-            $post->update($data);
-        }
-        return $post;
-    }
-
-    public function delete(int $id): void
-    {
-        $post = $this->getById($id);
-        if ($post) {
-            $post->delete();
-        }
+        return $this->findAll()->order('created_at DESC');
     }
 }
-

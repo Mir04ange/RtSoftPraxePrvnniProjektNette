@@ -1,10 +1,10 @@
 services:
 	- App\Router\RouterFactory::createRouter
-	- App\Model\PostRepository
-	- App\Model\CommentRepository
 
 search:
     - in: %appDir%
       classes:
           - *Repository
+          - *Facade
+          - *Mapper
           - *Factory
