@@ -7,8 +7,35 @@ namespace App\Module\Front\Presenters;
 use Nette;
 use Nette\Application\UI\Form;
 
+/**
+ * Presenter pro správu autentizace (přihlašování a odhlašování).
+ */
 final class SignPresenter extends Nette\Application\UI\Presenter
 {
+    /**
+     * Pokud je uživatel již přihlášen a snaží se jít na přihlašovací stránku,
+     * přesměrujeme ho na úvodní stránku.
+     */
+    public function actionIn(): void
+    {
+        if ($this->getUser()->isLoggedIn()) {
+            $this->redirect('Homepage:default');
+        }
+    }
+
+    /**
+     * Akce pro odhlášení uživatele. Provádí se přímo bez nutnosti potvrzovat formulář.
+     */
+    public function actionOut(): void
+    {
+        $this->getUser()->logout();
+        $this->flashMessage('Byli jste odhlášeni.', 'info');
+        $this->redirect('Homepage:default');
+    }
+
+    /**
+     * Komponenta přihlašovacího formuláře.
+     */
     protected function createComponentSignInForm(): Form
     {
         $form = new Form;
@@ -24,6 +51,9 @@ final class SignPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
+    /**
+     * Zpracování úspěšně odeslaného přihlašovacího formuláře.
+     */
     private function signInFormSucceeded(Form $form, mixed $data): void
     {
         try {
@@ -31,28 +61,22 @@ final class SignPresenter extends Nette\Application\UI\Presenter
                 $this->getStringValue($data, 'username'),
                 $this->getStringValue($data, 'password'),
             );
+            $this->flashMessage('Byli jste úspěšně přihlášeni.', 'success');
+            
+            $backlink = $this->getParameter('backlink');
+            if (is_string($backlink)) {
+                $this->restoreRequest($backlink);
+            }
+            
             $this->redirect('Homepage:default');
         } catch (Nette\Security\AuthenticationException) {
             $form->addError('Nesprávné přihlašovací jméno nebo heslo.');
         }
     }
 
-    protected function createComponentSignOutForm(): Form
-    {
-        $form = new Form;
-        $form->addSubmit('send', 'Odhlásit');
-        $form->onSuccess[] = $this->signOutFormSucceeded(...);
-
-        return $form;
-    }
-
-    public function signOutFormSucceeded(Form $form, mixed $data): void
-    {
-        $this->getUser()->logout();
-        $this->flashMessage('Byli jste odhlášeni.');
-        $this->redirect('Homepage:default');
-    }
-
+    /**
+     * Pomocná metoda pro bezpečné získání textové hodnoty z formulářových dat.
+     */
     private function getStringValue(mixed $data, string $key): string
     {
         if (!is_object($data)) {

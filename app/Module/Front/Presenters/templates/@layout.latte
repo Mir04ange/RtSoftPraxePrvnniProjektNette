@@ -25,9 +25,9 @@
 	<!-- Navigace -->
 	<nav class="navig">
 		<ul>
-			<li><a href="/">Články</a></li>
+			<li><a n:href="Homepage:default">Články</a></li>
 			{if $user->isLoggedIn()}
-				<li><a n:href="Sign:out">Odhlásit</a></li>
+				<li><a n:href="Sign:out">Odhlásit ({$user->getIdentity()?->getId()})</a></li>
 			{else}
 				<li><a n:href="Sign:in">Přihlásit</a></li>
 			{/if}

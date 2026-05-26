@@ -3,7 +3,7 @@
     <h1>Blog</h1>
     <p>Objevujte zajímavé články a příspěvky.</p>
 
-    <div style="text-align: center; margin-bottom: 30px;">
+    <div style="text-align: center; margin-bottom: 30px;" n:if="$user->isLoggedIn()">
         <a class="btn" n:href="Edit:create">Napsat nový příspěvek</a>
     </div>
 </div>
@@ -24,7 +24,7 @@
             <p class="post-preview">
                 Kliknutím na název si přečtete celý příspěvek a komentáře.
             </p>
-            <p>
+            <p n:if="$user->isLoggedIn()">
                 <a n:href="Edit:edit $post->id">Upravit</a>
                 |
                 <a n:href="Edit:delete $post->id" onclick="return confirm('Opravdu chcete smazat tento příspěvek včetně komentářů?')">Smazat</a>

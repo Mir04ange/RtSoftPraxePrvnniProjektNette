@@ -13,7 +13,7 @@
         {$post->content}
     </div>
 
-    <div style="margin-top: 30px; text-align: right;">
+    <div style="margin-top: 30px; text-align: right;" n:if="$user->isLoggedIn()">
         <a class="btn" n:href="Edit:edit $post->id">Upravit</a>
         <a class="btn" n:href="Edit:delete $post->id" onclick="return confirm('Opravdu chcete smazat tento příspěvek včetně komentářů?')">Smazat</a>
     </div>
@@ -32,7 +32,7 @@
                     <span class="date">{$comment->createdAt|date:'j. n. Y H:i'}</span>
                 </p>
                 <div>{$comment->content}</div>
-                <p style="margin-top: 10px;">
+                <p style="margin-top: 10px;" n:if="$user->isLoggedIn()">
                     <a n:href="Post:editComment $post->id, $comment->id">Upravit komentář</a>
                     |
                     <a n:href="Post:deleteComment $post->id, $comment->id" onclick="return confirm('Opravdu chcete smazat tento komentář?')">Smazat komentář</a>

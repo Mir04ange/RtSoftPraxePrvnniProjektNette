@@ -9,6 +9,9 @@ use Nette;
 use Nette\Application\UI\Form;
 use RuntimeException;
 
+/**
+ * Presenter pro zobrazení detailu příspěvku a správu jeho komentářů.
+ */
 final class PostPresenter extends Nette\Application\UI\Presenter
 {
     public function __construct(
@@ -17,6 +20,9 @@ final class PostPresenter extends Nette\Application\UI\Presenter
         parent::__construct();
     }
 
+    /**
+     * Zobrazení detailu příspěvku a jeho komentářů.
+     */
     public function renderShow(int $id): void
     {
         $post = $this->postFacade->getPost($id);
@@ -29,8 +35,15 @@ final class PostPresenter extends Nette\Application\UI\Presenter
         $this->template->comments = $this->postFacade->findCommentsByPostId($id);
     }
 
-    public function renderEditComment(int $id, int $commentId): void
+    /**
+     * Akce pro editaci komentáře. Přístupná pouze přihlášeným uživatelům.
+     */
+    public function actionEditComment(int $id, int $commentId): void
     {
+        if (!$this->getUser()->isLoggedIn()) {
+            $this->redirect('Sign:in', ['backlink' => $this->storeRequest()]);
+        }
+
         $post = $this->postFacade->getPost($id);
         $comment = $this->postFacade->getComment($commentId);
 
@@ -38,8 +51,6 @@ final class PostPresenter extends Nette\Application\UI\Presenter
             $this->error('Komentář nebyl nalezen.');
         }
 
-        $this->template->post = $post;
-        $this->template->comment = $comment;
         $this->getComponent('commentForm')
             ->setDefaults([
                 'name' => $comment->name,
@@ -48,20 +59,61 @@ final class PostPresenter extends Nette\Application\UI\Presenter
             ]);
     }
 
+    /**
+     * Zobrazení šablony pro editaci komentáře.
+     */
+    public function renderEditComment(int $id, int $commentId): void
+    {
+        $post = $this->postFacade->getPost($id);
+        $comment = $this->postFacade->getComment($commentId);
+
+        if ($post === null || $comment === null) {
+            $this->error('Data nebyla nalezena.');
+        }
+
+        $this->template->post = $post;
+        $this->template->comment = $comment;
+    }
+
+    /**
+     * Akce pro smazání komentáře. Přístupná pouze přihlášeným uživatelům.
+     */
+    public function actionDeleteComment(int $id, int $commentId): void
+    {
+        if (!$this->getUser()->isLoggedIn()) {
+            $this->redirect('Sign:in', ['backlink' => $this->storeRequest()]);
+        }
+
+        try {
+            $this->postFacade->deleteComment($id, $commentId);
+            $this->flashMessage('Komentář byl smazán.', 'success');
+        } catch (RuntimeException $exception) {
+            $this->flashMessage('Při mazání komentáře došlo k chybě: ' . $exception->getMessage(), 'error');
+        }
+
+        $this->redirect('Post:show', $id);
+    }
+
+    /**
+     * Komponenta formuláře pro komentář.
+     */
     protected function createComponentCommentForm(): Form
     {
         $form = new Form;
         $form->addText('name', 'Jméno:')
-            ->setRequired();
+            ->setRequired('Prosím vyplňte své jméno.');
         $form->addEmail('email', 'E-mail:');
         $form->addTextArea('content', 'Komentář:')
-            ->setRequired();
+            ->setRequired('Prosím vyplňte obsah komentáře.');
         $form->addSubmit('send', 'Uložit komentář');
         $form->onSuccess[] = $this->commentFormSucceeded(...);
 
         return $form;
     }
 
+    /**
+     * Zpracování úspěšně odeslaného formuláře komentáře.
+     */
     private function commentFormSucceeded(Form $form, mixed $data): void
     {
         $postId = $this->toInt($this->getParameter('id'));
@@ -73,27 +125,16 @@ final class PostPresenter extends Nette\Application\UI\Presenter
                 'email' => $this->getStringValue($data, 'email'),
                 'content' => $this->getStringValue($data, 'content'),
             ]);
+            $this->flashMessage('Komentář byl úspěšně uložen.', 'success');
+            $this->redirect('Post:show', $postId);
         } catch (RuntimeException $exception) {
-            $form->addError($exception->getMessage());
-            return;
+            $form->addError('Při ukládání došlo k chybě: ' . $exception->getMessage());
         }
-
-        $this->flashMessage('Komentář byl úspěšně uložen.', 'success');
-        $this->redirect('Post:show', $postId);
     }
 
-    public function actionDeleteComment(int $id, int $commentId): void
-    {
-        try {
-            $this->postFacade->deleteComment($id, $commentId);
-        } catch (RuntimeException $exception) {
-            $this->error($exception->getMessage());
-        }
-
-        $this->flashMessage('Komentář byl smazán.', 'success');
-        $this->redirect('Post:show', $id);
-    }
-
+    /**
+     * Pomocná metoda pro bezpečný převod na int.
+     */
     private function toInt(mixed $value): int
     {
         if (!is_int($value) && !is_string($value)) {
@@ -103,15 +144,21 @@ final class PostPresenter extends Nette\Application\UI\Presenter
         return (int) $value;
     }
 
+    /**
+     * Pomocná metoda pro bezpečný převod na volitelné int.
+     */
     private function toOptionalInt(mixed $value): ?int
     {
-        if ($value === null) {
+        if ($value === null || $value === '') {
             return null;
         }
 
         return $this->toInt($value);
     }
 
+    /**
+     * Pomocná metoda pro bezpečné získání textové hodnoty z dat.
+     */
     private function getStringValue(mixed $data, string $key): string
     {
         if (!is_object($data)) {

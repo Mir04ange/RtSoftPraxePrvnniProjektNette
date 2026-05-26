@@ -9,6 +9,10 @@ use Nette;
 use Nette\Application\UI\Form;
 use RuntimeException;
 
+/**
+ * Presenter pro vytváření, editaci a mazání příspěvků.
+ * Přístup k těmto akcím je omezen pouze na přihlášené uživatele.
+ */
 final class EditPresenter extends Nette\Application\UI\Presenter
 {
     public function __construct(
@@ -17,32 +21,29 @@ final class EditPresenter extends Nette\Application\UI\Presenter
         parent::__construct();
     }
 
-    protected function createComponentPostForm(): Form
+    /**
+     * Společná kontrola oprávnění pro všechny akce v tomto presenteru.
+     */
+    protected function startup(): void
     {
-        $form = new Form;
-        $form->addText('title', 'Titulek:')
-            ->setRequired();
-        $form->addTextArea('content', 'Obsah:')
-            ->setRequired();
-        $form->addSubmit('send', 'Uložit a publikovat');
-        $form->onSuccess[] = $this->postFormSucceeded(...);
-
-        return $form;
+        parent::startup();
+        if (!$this->getUser()->isLoggedIn()) {
+            $this->redirect('Sign:in', ['backlink' => $this->storeRequest()]);
+        }
     }
 
-    private function postFormSucceeded(Form $form, mixed $data): void
+    /**
+     * Akce pro vytvoření nového příspěvku.
+     */
+    public function actionCreate(): void
     {
-        $id = $this->toOptionalInt($this->getParameter('id'));
-        $post = $this->postFacade->savePost($id, [
-            'title' => $this->getStringValue($data, 'title'),
-            'content' => $this->getStringValue($data, 'content'),
-        ]);
-
-        $this->flashMessage('Příspěvek byl úspěšně uložen.', 'success');
-        $this->redirect('Post:show', $post->id);
+        // Žádná speciální logika, pouze zobrazení formuláře
     }
 
-    public function renderEdit(int $id): void
+    /**
+     * Akce pro úpravu stávajícího příspěvku.
+     */
+    public function actionEdit(int $id): void
     {
         $post = $this->postFacade->getPost($id);
 
@@ -57,21 +58,63 @@ final class EditPresenter extends Nette\Application\UI\Presenter
             ]);
     }
 
+    /**
+     * Akce pro smazání příspěvku.
+     */
     public function actionDelete(int $id): void
     {
         try {
             $this->postFacade->deletePost($id);
+            $this->flashMessage('Příspěvek byl smazán.', 'success');
         } catch (RuntimeException $exception) {
-            $this->error($exception->getMessage());
+            $this->flashMessage('Při mazání příspěvku došlo k chybě: ' . $exception->getMessage(), 'error');
         }
 
-        $this->flashMessage('Příspěvek byl smazán.', 'success');
         $this->redirect('Homepage:default');
     }
 
+    /**
+     * Komponenta formuláře pro příspěvek.
+     */
+    protected function createComponentPostForm(): Form
+    {
+        $form = new Form;
+        $form->addText('title', 'Titulek:')
+            ->setRequired('Prosím vyplňte titulek.');
+        $form->addTextArea('content', 'Obsah:')
+            ->setRequired('Prosím vyplňte obsah.');
+        $form->addSubmit('send', 'Uložit a publikovat');
+        $form->onSuccess[] = $this->postFormSucceeded(...);
+
+        return $form;
+    }
+
+    /**
+     * Zpracování úspěšně odeslaného formuláře příspěvku.
+     */
+    private function postFormSucceeded(Form $form, mixed $data): void
+    {
+        $id = $this->toOptionalInt($this->getParameter('id'));
+        
+        try {
+            $post = $this->postFacade->savePost($id, [
+                'title' => $this->getStringValue($data, 'title'),
+                'content' => $this->getStringValue($data, 'content'),
+            ]);
+
+            $this->flashMessage('Příspěvek byl úspěšně uložen.', 'success');
+            $this->redirect('Post:show', $post->id);
+        } catch (RuntimeException $exception) {
+            $form->addError('Při ukládání došlo k chybě: ' . $exception->getMessage());
+        }
+    }
+
+    /**
+     * Pomocná metoda pro bezpečný převod na volitelné celé číslo.
+     */
     private function toOptionalInt(mixed $value): ?int
     {
-        if ($value === null) {
+        if ($value === null || $value === '') {
             return null;
         }
 
@@ -82,6 +125,9 @@ final class EditPresenter extends Nette\Application\UI\Presenter
         return (int) $value;
     }
 
+    /**
+     * Pomocná metoda pro bezpečné získání textové hodnoty z dat.
+     */
     private function getStringValue(mixed $data, string $key): string
     {
         if (!is_object($data)) {
