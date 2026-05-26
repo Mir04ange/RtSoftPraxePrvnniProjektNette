@@ -13,6 +13,11 @@ use App\Model\PostRepository;
 use Nette\Database\Explorer;
 use RuntimeException;
 
+/**
+ * Fasáda pro správu příspěvků a komentářů.
+ * Sjednocuje logiku z více repozitářů a zajišťuje transakční zpracování.
+ * Vrací čisté DTO objekty místo databázových řádků.
+ */
 final class PostFacade
 {
     public function __construct(
@@ -25,6 +30,7 @@ final class PostFacade
     }
 
     /**
+     * Vyhledá veřejné příspěvky, volitelně s limitem.
      * @return list<PostDto>
      */
     public function findPublicPosts(?int $limit = null): array
@@ -38,6 +44,9 @@ final class PostFacade
         return $this->postMapper->mapMany($selection);
     }
 
+    /**
+     * Získá detail jednoho příspěvku podle ID.
+     */
     public function getPost(int $id): ?PostDto
     {
         $post = $this->postRepository->getById($id);
@@ -46,6 +55,7 @@ final class PostFacade
     }
 
     /**
+     * Vyhledá všechny komentáře k danému příspěvku.
      * @return list<CommentDto>
      */
     public function findCommentsByPostId(int $postId): array
@@ -53,6 +63,9 @@ final class PostFacade
         return $this->commentMapper->mapMany($this->commentRepository->findByPostId($postId));
     }
 
+    /**
+     * Získá detail jednoho komentáře podle ID.
+     */
     public function getComment(int $id): ?CommentDto
     {
         $comment = $this->commentRepository->getById($id);
@@ -61,6 +74,7 @@ final class PostFacade
     }
 
     /**
+     * Uloží příspěvek (vytvoří nový nebo aktualizuje stávající).
      * @param array<string, mixed> $data
      */
     public function savePost(?int $id, array $data): PostDto
@@ -69,6 +83,7 @@ final class PostFacade
     }
 
     /**
+     * Uloží komentář k příspěvku. Provádí validaci existence příspěvku i komentáře.
      * @param array<string, mixed> $data
      */
     public function saveComment(int $postId, ?int $commentId, array $data): CommentDto
@@ -92,6 +107,9 @@ final class PostFacade
         return $this->commentMapper->map($this->commentRepository->save($commentId, $data));
     }
 
+    /**
+     * Smaže komentář. Ověřuje, zda komentář patří k danému příspěvku.
+     */
     public function deleteComment(int $postId, int $commentId): void
     {
         $comment = $this->commentRepository->getById($commentId);
@@ -103,6 +121,10 @@ final class PostFacade
         $this->commentRepository->delete($commentId);
     }
 
+    /**
+     * Smaže příspěvek včetně všech jeho komentářů v rámci jedné databázové transakce.
+     * Tím je zajištěna integrita dat - buď se smaže vše, nebo nic.
+     */
     public function deletePost(int $postId): void
     {
         $post = $this->postRepository->getById($postId);
@@ -112,14 +134,19 @@ final class PostFacade
         }
 
         $this->database->transaction(function () use ($postId): void {
+            // Smazání všech navázaných komentářů
             foreach ($this->commentRepository->findByPostId($postId) as $comment) {
                 $comment->delete();
             }
 
+            // Smazání samotného příspěvku
             $this->postRepository->delete($postId);
         });
     }
 
+    /**
+     * Pomocná metoda pro bezpečný převod mixed hodnoty na int pro PHPStan.
+     */
     private function toInt(mixed $value): int
     {
         if (!is_int($value) && !is_string($value)) {

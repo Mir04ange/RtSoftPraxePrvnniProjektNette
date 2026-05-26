@@ -9,8 +9,15 @@ use DateTimeInterface;
 use Nette\Database\Table\ActiveRow;
 use RuntimeException;
 
+/**
+ * Mapper zodpovědný za transformaci databázových řádků (ActiveRow) na čisté objekty (PostDto).
+ * Tím se odděluje databázová struktura od zbytku aplikace.
+ */
 final class PostMapper
 {
+    /**
+     * Mapuje jeden ActiveRow na PostDto.
+     */
     public function map(ActiveRow $row): PostDto
     {
         $createdAt = $row->created_at;
@@ -24,6 +31,7 @@ final class PostMapper
     }
 
     /**
+     * Mapuje kolekci ActiveRow na pole DTO objektů.
      * @param iterable<ActiveRow> $rows
      * @return list<PostDto>
      */
@@ -38,6 +46,9 @@ final class PostMapper
         return $posts;
     }
 
+    /**
+     * Pomocná metoda pro validaci a převod na int.
+     */
     private function toInt(mixed $value): int
     {
         if (!is_int($value) && !is_string($value)) {
@@ -47,6 +58,9 @@ final class PostMapper
         return (int) $value;
     }
 
+    /**
+     * Pomocná metoda pro validaci a převod na string.
+     */
     private function toString(mixed $value): string
     {
         if (!is_scalar($value)) {
