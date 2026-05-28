@@ -17,7 +17,8 @@ use RuntimeException;
 final class EditPresenter extends Nette\Application\UI\Presenter
 {
     public function __construct(
-        private PostFacade $postFacade,
+        // Eroor fix :>
+        protected PostFacade $postFacade,
     ) {
         parent::__construct();
     }
