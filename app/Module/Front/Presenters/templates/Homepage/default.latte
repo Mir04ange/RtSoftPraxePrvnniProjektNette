@@ -4,33 +4,39 @@
     <p>Objevujte zajímavé články a příspěvky.</p>
 
     <div style="text-align: center; margin-bottom: 30px;" n:if="$user->isLoggedIn()">
-        <a class="btn" n:href="Edit:create">Napsat nový příspěvek</a>
+        <a class="btn" n:href="Edit:create">✨ Napsat nový příspěvek</a>
     </div>
 </div>
 
 <div class="posts-container">
     {foreach $posts as $post}
         <article class="post">
-            <div class="post-bottom-left"></div>
-            <div class="post-bottom-right"></div>
             <div class="post-icon">
-                {if $iterator->counter === 1}⊕{elseif $iterator->counter === 2}✦{else}📖{/if}
+                {if $iterator->counter === 1}⚡{elseif $iterator->counter === 2}✨{elseif $iterator->counter === 3}🚀{elseif $iterator->counter === 4}💡{else}📝{/if}
             </div>
 
-            <h2>
-                <a n:href="Post:show $post->id">{$post->title}</a>
-            </h2>
-            <span class="date">{$post->createdAt|date:'j. n. Y'}</span>
-            <p class="post-preview">
-                Kliknutím na název si přečtete celý příspěvek a komentáře.
-            </p>
-            <p n:if="$user->isLoggedIn()">
-                <a n:href="Edit:edit $post->id">Upravit</a>
-                |
-                <a n:href="Edit:delete $post->id" onclick="return confirm('Opravdu chcete smazat tento příspěvek včetně komentářů?')">Smazat</a>
-            </p>
+            <div class="post-content">
+                <h2>
+                    <a n:href="Post:show $post->id">{$post->title}</a>
+                </h2>
+                <span class="date">📅 {$post->createdAt|date:'j. n. Y'}</span>
+                <p class="post-preview">
+                    Kliknutím na název si přečtete celý příspěvek a komentáře.
+                </p>
+                
+                {if $user->isLoggedIn()}
+                    <div class="post-actions">
+                        <a n:href="Edit:edit $post->id">✏️ Upravit</a>
+                        <a n:href="Edit:delete $post->id" onclick="return confirm('Opravdu chcete smazat tento příspěvek včetně komentářů?')">🗑️ Smazat</a>
+                    </div>
+                {/if}
+            </div>
         </article>
     {else}
-        <p>Bud prvni kdo vytvori prispevek </p>
+        <article class="post" style="text-align: center; padding: 60px 40px;">
+            <p style="font-size: 1.1rem; color: var(--color-gray-medium);">
+                🌟 Buď první, kdo vytvoří příspěvek!
+            </p>
+        </article>
     {/foreach}
 </div>

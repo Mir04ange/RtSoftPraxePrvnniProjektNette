@@ -1,50 +1,62 @@
 {block content}
-<div class="post-header" style="margin-bottom: 30px;">
-    <a style="text-decoration: none; font-family: Dialog; color:snow;" class="kls" n:href="Homepage:default">← Zpět na výpis příspěvků</a>
+<div class="post-header" style="margin-bottom: 30px; animation: slideInDown 0.6s ease-out;">
+    <a style="text-decoration: none; color: var(--color-primary-light); font-weight: 600; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;" class="kls" n:href="Homepage:default">
+        ← Zpět na výpis příspěvků
+    </a>
 </div>
 
 <article class="post">
-    <div class="post-bottom-left"></div>
-    <div class="post-bottom-right"></div>
+    <div class="post-icon" style="top: 20px; right: 30px; font-size: 3rem;">📖</div>
 
-    <span class="date">{$post->createdAt|date:'j. n. Y'}</span>
-    <h1 style="text-align: left; margin-bottom: 20px;">{$post->title}</h1>
     <div class="post-content">
-        {$post->content}
-    </div>
+        <span class="date">📅 {$post->createdAt|date:'j. n. Y'}</span>
+        <h1 style="text-align: left; margin-bottom: 20px; margin-top: 10px; font-size: 2.5rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">{$post->title}</h1>
+        
+        <div class="post-content" style="color: var(--color-gray-medium); line-height: 1.8; margin: 25px 0;">
+            {$post->content}
+        </div>
 
-    <div style="margin-top: 30px; text-align: right;" n:if="$user->isLoggedIn()">
-        <a class="btn" n:href="Edit:edit $post->id">Upravit</a>
-        <a class="btn" n:href="Edit:delete $post->id" onclick="return confirm('Opravdu chcete smazat tento příspěvek včetně komentářů?')">Smazat</a>
+        <div style="margin-top: 30px; display: flex; gap: 15px; flex-wrap: wrap;" n:if="$user->isLoggedIn()">
+            <a class="btn" n:href="Edit:edit $post->id">✏️ Upravit</a>
+            <a class="btn" n:href="Edit:delete $post->id" onclick="return confirm('Opravdu chcete smazat tento příspěvek včetně komentářů?')" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);">🗑️ Smazat</a>
+        </div>
     </div>
 </article>
 
-<section class="comments-section">
-    <h2>Komentáře</h2>
+<section class="comments-section" style="margin-top: 50px;">
+    <h2 style="margin-bottom: 30px; font-size: 2rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">💬 Komentáře</h2>
 
     <div class="comments-list">
         {foreach $comments as $comment}
-            <article class="comment" style="margin-bottom: 20px; padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.25);">
-                <p>
+            <article class="comment-item" style="animation: slideInUp 0.6s ease-out;">
+                <p class="comment-meta">
                     <strong>
-                        <a href="mailto:{$comment->email}" n:tag-if="$comment->email">{$comment->name}</a>
+                        <a href="mailto:{$comment->email}" n:tag-if="$comment->email" style="color: var(--color-primary-light); text-decoration: none; transition: all 0.3s ease;">{$comment->name}</a>
                     </strong>
-                    <span class="date">{$comment->createdAt|date:'j. n. Y H:i'}</span>
+                    <span style="color: var(--color-gray-medium); font-size: 0.85rem; margin-left: 10px;">
+                        {$comment->createdAt|date:'j. n. Y H:i'}
+                    </span>
                 </p>
-                <div>{$comment->content}</div>
-                <p style="margin-top: 10px;" n:if="$user->isLoggedIn()">
-                    <a n:href="Post:editComment $post->id, $comment->id">Upravit komentář</a>
-                    |
-                    <a n:href="Post:deleteComment $post->id, $comment->id" onclick="return confirm('Opravdu chcete smazat tento komentář?')">Smazat komentář</a>
+                <div style="color: var(--color-gray-medium); margin-top: 10px; line-height: 1.6;">
+                    {$comment->content}
+                </div>
+                <p style="margin-top: 12px;" n:if="$user->isLoggedIn()">
+                    <a class="kls" n:href="Post:editComment $post->id, $comment->id">✏️ Upravit</a>
+                    <span style="color: var(--color-gray-medium); margin: 0 8px;">|</span>
+                    <a class="kls" n:href="Post:deleteComment $post->id, $comment->id" onclick="return confirm('Opravdu chcete smazat tento komentář?')" style="color: #fca5a5;">🗑️ Smazat</a>
                 </p>
             </article>
         {else}
-            <p>Zatím zde nejsou žádné komentáře.</p>
+            <div class="post" style="text-align: center; padding: 40px; background: rgba(255, 255, 255, 0.03);">
+                <p style="font-size: 1.1rem; color: var(--color-gray-medium);">
+                    ✨ Zatím zde nejsou žádné komentáře. Buď první!
+                </p>
+            </div>
         {/foreach}
     </div>
 
-    <div class="form-box">
-        <h3>Přidat komentář</h3>
+    <div class="form-box" style="margin-top: 40px;">
+        <h3 style="margin-bottom: 20px; font-size: 1.3rem; color: var(--color-white);">✍️ Přidat komentář</h3>
         {control commentForm}
     </div>
 </section>
