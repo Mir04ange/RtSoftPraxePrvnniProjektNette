@@ -7,6 +7,7 @@ namespace App\Module\Front\Presenters;
 use App\Model\Facade\PostFacade;
 use Nette;
 
+
 final class HomepagePresenter extends Nette\Application\UI\Presenter
 {
     public function __construct(
@@ -16,7 +17,11 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     }
 
     public function renderDefault(): void
+
     {
-        $this->template->posts = $this->postFacade->findPublicPosts(5);
+
+            //magicke cislo
+        $pagesPosts = 5;
+        $this->template->posts = $this->postFacade->findPublicPosts($pagesPosts);
     }
 }

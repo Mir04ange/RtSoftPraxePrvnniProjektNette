@@ -6,6 +6,7 @@ namespace App\Module\Front\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
+use Nette\Utils\ArrayHash;
 
 /**
  * Presenter pro správu autentizace (přihlašování a odhlašování).
@@ -54,7 +55,7 @@ final class SignPresenter extends Nette\Application\UI\Presenter
     /**
      * Zpracování úspěšně odeslaného přihlašovacího formuláře.
      */
-    private function signInFormSucceeded(Form $form, mixed $data): void
+    private function signInFormSucceeded(Form $form, ArrayHash $data): void
     {
         try {
             $this->getUser()->login(

@@ -7,6 +7,7 @@ namespace App\Module\Front\Presenters;
 use App\Model\Facade\PostFacade;
 use Nette;
 use Nette\Application\UI\Form;
+use Nette\Utils\ArrayHash;
 use RuntimeException;
 
 /**
@@ -114,7 +115,7 @@ final class PostPresenter extends Nette\Application\UI\Presenter
     /**
      * Zpracování úspěšně odeslaného formuláře komentáře.
      */
-    private function commentFormSucceeded(Form $form, mixed $data): void
+    private function commentFormSucceeded(Form $form, ArrayHash $data): void
     {
         $postId = $this->toInt($this->getParameter('id'));
         $commentId = $this->toOptionalInt($this->getParameter('commentId'));

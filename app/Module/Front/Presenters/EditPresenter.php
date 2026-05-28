@@ -7,6 +7,7 @@ namespace App\Module\Front\Presenters;
 use App\Model\Facade\PostFacade;
 use Nette;
 use Nette\Application\UI\Form;
+use Nette\Utils\ArrayHash;
 use RuntimeException;
 
 /**
@@ -92,7 +93,7 @@ final class EditPresenter extends Nette\Application\UI\Presenter
     /**
      * Zpracování úspěšně odeslaného formuláře příspěvku.
      */
-    private function postFormSucceeded(Form $form, mixed $data): void
+    private function postFormSucceeded(Form $form, ArrayHash $data): void
     {
         $id = $this->toOptionalInt($this->getParameter('id'));
         

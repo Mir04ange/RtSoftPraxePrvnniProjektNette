@@ -9,23 +9,13 @@ use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\Selection;
 use RuntimeException;
 
-/**
- * Základní repozitář poskytující společné CRUD operace pro všechny ostatní repozitáře.
- * Implementuje princip DRY (Don't Repeat Yourself) pro práci s databází.
- */
 abstract class BaseRepository
 {
-    /**
-     * @param Explorer $database Nette Database Explorer pro dotazování
-     */
     public function __construct(
         protected Explorer $database,
     ) {
     }
 
-    /**
-     * Abstraktní metoda, kterou musí potomci implementovat pro určení názvu tabulky.
-     */
     abstract protected function getTableName(): string;
 
     /**
