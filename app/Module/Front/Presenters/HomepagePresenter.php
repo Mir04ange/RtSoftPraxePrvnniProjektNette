@@ -17,11 +17,13 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     }
 
     public function renderDefault(): void
-
     {
-
-            //magicke cislo
         $pagesPosts = 5;
         $this->template->posts = $this->postFacade->findPublicPosts($pagesPosts);
+    }
+
+    public function renderHelp(): void
+    {
+        // Použije šablonu Help/default.latte
     }
 }
