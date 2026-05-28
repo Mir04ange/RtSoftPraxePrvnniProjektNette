@@ -1,22 +1,13 @@
-/* --- Globální nastavení 2026 --- */
+/* --- Neo-Brutalism Design 2026 --- */
 :root {
-    --color-primary: #6366f1;
-    --color-primary-light: #818cf8;
-    --color-primary-dark: #4f46e5;
-    --color-accent: #ec4899;
-    --color-accent-light: #f472b6;
+    --color-black: #000000;
     --color-white: #ffffff;
-    --color-dark: #0f172a;
-    --color-gray-light: #f1f5f9;
-    --color-gray-medium: #cbd5e1;
-    --color-gray-dark: #475569;
-    --color-success: #10b981;
-    --color-danger: #ef4444;
-    
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-    --gradient-secondary: linear-gradient(135deg, #818cf8 0%, #f472b6 100%);
-    --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    --color-gray: #f0f0f0;
+    --color-accent: #ff0000;
+    --color-accent-dark: #cc0000;
+    --color-dark-gray: #333333;
+    --color-border: #000000;
+    --color-yellow: #ffff00;
 }
 
 * {
@@ -30,48 +21,33 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-    background: var(--gradient-dark);
-    color: var(--color-white);
-    line-height: 1.6;
+    font-family: 'Courier New', monospace;
+    background: var(--color-white);
+    color: var(--color-black);
+    line-height: 1.4;
     padding: 40px 20px 120px 20px;
     min-height: 100vh;
     position: relative;
-    overflow-x: hidden;
 }
 
-/* Animated background elements */
+/* Bold background pattern */
 body::before {
     content: '';
     position: fixed;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-    animation: float 20s ease-in-out infinite;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px
+        );
     pointer-events: none;
     z-index: -1;
-}
-
-body::after {
-    content: '';
-    position: fixed;
-    bottom: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%);
-    animation: float 25s ease-in-out infinite reverse;
-    pointer-events: none;
-    z-index: -1;
-}
-
-@keyframes float {
-    0%, 100% { transform: translate(0, 0); }
-    25% { transform: translate(30px, -30px); }
-    50% { transform: translate(-20px, 20px); }
-    75% { transform: translate(20px, 30px); }
 }
 
 .container {
@@ -83,87 +59,83 @@ body::after {
 
 /* --- Nadpisy --- */
 h1 {
-    font-size: 3.5rem;
+    font-size: 4rem;
     text-align: center;
     margin-bottom: 20px;
-    font-weight: 700;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -1px;
-    animation: slideInDown 0.8s ease-out;
+    font-weight: 900;
+    color: var(--color-black);
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    border: 8px solid var(--color-black);
+    padding: 20px;
+    background: var(--color-yellow);
+    transform: rotate(-2deg);
+    box-shadow: 12px 12px 0px var(--color-black);
+    animation: brutalistBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-@keyframes slideInDown {
-    from {
+@keyframes brutalistBounce {
+    0% {
+        transform: rotate(-2deg) translateY(-30px);
         opacity: 0;
-        transform: translateY(-30px);
     }
-    to {
+    100% {
+        transform: rotate(-2deg) translateY(0);
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
 .homepage-header {
     text-align: center;
     margin-bottom: 60px;
-    animation: fadeIn 1s ease-out 0.2s both;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 .homepage-header p {
-    font-size: 1.1rem;
-    color: var(--color-gray-medium);
+    font-size: 1.3rem;
+    color: var(--color-black);
     margin-bottom: 30px;
-    font-weight: 300;
-    letter-spacing: 0.5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 h2 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--color-white);
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--color-black);
     margin-bottom: 0;
-    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: -1px;
 }
 
 h3 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--color-gray-medium);
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--color-black);
+    text-transform: uppercase;
 }
 
-/* --- Moderní post karty s glassmorphism efektem --- */
+/* --- Bold Post Cards --- */
 .post {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-white);
+    border: 6px solid var(--color-black);
     padding: 40px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     position: relative;
-    border-radius: 16px;
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.2),
-        inset 0 1px 1px rgba(255, 255, 255, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 16px 16px 0px var(--color-black);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     overflow: hidden;
-    animation: slideInUp 0.6s ease-out;
+    animation: slideInBrutal 0.6s ease-out;
 }
 
-@keyframes slideInUp {
+@keyframes slideInBrutal {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateX(-50px) rotate(-1deg);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0) rotate(0deg);
     }
 }
 
@@ -173,8 +145,8 @@ h3 {
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: var(--gradient-primary);
+    height: 6px;
+    background: var(--color-accent);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s ease;
@@ -185,12 +157,8 @@ h3 {
 }
 
 .post:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: 
-        0 12px 48px rgba(99, 102, 241, 0.15),
-        inset 0 1px 1px rgba(255, 255, 255, 0.15);
-    transform: translateY(-4px);
+    transform: translateY(-8px) rotate(1deg);
+    box-shadow: 20px 20px 0px var(--color-black);
 }
 
 .post-content {
@@ -199,54 +167,58 @@ h3 {
 }
 
 .post h2 {
-    border-bottom: 2px solid var(--color-primary);
-    padding-bottom: 12px;
-    margin-bottom: 15px;
-    font-size: 1.9rem;
+    border-bottom: 4px solid var(--color-black);
+    border-top: 4px solid var(--color-black);
+    padding: 15px 0;
+    margin-bottom: 20px;
+    font-size: 2rem;
 }
 
 .post h2 a {
-    color: var(--color-white);
+    color: var(--color-black);
     text-decoration: none;
     transition: all 0.3s ease;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 .post h2 a:hover {
-    opacity: 0.8;
+    background: var(--color-yellow);
+    padding: 0 8px;
 }
 
 .post-icon {
     position: absolute;
     top: 20px;
     right: 30px;
-    font-size: 2.5rem;
-    opacity: 0.3;
-    transition: all 0.4s ease;
-    animation: float 6s ease-in-out infinite;
+    font-size: 3.5rem;
+    opacity: 0.8;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: iconRotate 6s linear infinite;
+}
+
+@keyframes iconRotate {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(10deg) scale(1.1); }
 }
 
 .post:hover .post-icon {
-    opacity: 0.6;
-    transform: scale(1.2);
+    transform: rotate(20deg) scale(1.3);
 }
 
 .date {
-    font-size: 0.9rem;
-    color: var(--color-gray-medium);
+    font-size: 1rem;
+    color: var(--color-black);
     margin-bottom: 15px;
     display: block;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .post-preview {
-    color: var(--color-gray-medium);
+    color: var(--color-black);
     margin-top: 10px;
-    line-height: 1.8;
+    line-height: 1.6;
+    font-size: 1.05rem;
 }
 
 .post-actions {
@@ -257,90 +229,90 @@ h3 {
 }
 
 .post-actions a {
-    color: var(--color-primary-light);
+    color: var(--color-white);
+    background: var(--color-black);
     text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    padding: 5px 10px;
-    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 900;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    padding: 10px 15px;
+    border: 3px solid var(--color-black);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .post-actions a:hover {
-    color: var(--color-accent);
-    background: rgba(99, 102, 241, 0.1);
+    background: var(--color-accent);
+    color: var(--color-white);
+    transform: rotate(-2deg) scale(1.05);
 }
 
-/* --- Tlačítka --- */
+/* --- Buttons --- */
 .btn, input[type="submit"] {
     display: inline-block;
-    padding: 12px 28px;
-    background: var(--gradient-primary);
+    padding: 15px 30px;
+    background: var(--color-black);
     color: var(--color-white);
-    border: none;
+    border: 4px solid var(--color-black);
     text-decoration: none;
-    font-family: inherit;
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    font-weight: 900;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    text-transform: uppercase;
+    letter-spacing: 1px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
 .btn::before, input[type="submit"]::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--color-accent);
+    transition: left 0.4s ease;
+    z-index: -1;
 }
 
 .btn:hover::before, input[type="submit"]:hover::before {
-    width: 300px;
-    height: 300px;
+    left: 0;
 }
 
 .btn:hover, input[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    transform: rotate(-3deg) scale(1.05);
+    box-shadow: 8px 8px 0px var(--color-black);
 }
 
 .btn:active, input[type="submit"]:active {
-    transform: translateY(0);
+    transform: rotate(-3deg) scale(0.98);
 }
 
-/* --- Navigace --- */
+/* --- Navigation --- */
 .navig {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 12px 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    background: var(--color-black);
+    padding: 15px 30px;
+    border: 4px solid var(--color-black);
+    box-shadow: 12px 12px 0px var(--color-accent);
     z-index: 1000;
-    border-radius: 12px;
-    animation: slideUp 0.6s ease-out;
+    animation: slideUpBrutal 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-@keyframes slideUp {
+@keyframes slideUpBrutal {
     from {
         opacity: 0;
-        transform: translateX(-50%) translateY(30px);
+        transform: translateX(-50%) translateY(50px) rotate(3deg);
     }
     to {
         opacity: 1;
-        transform: translateX(-50%) translateY(0);
+        transform: translateX(-50%) translateY(0) rotate(0deg);
     }
 }
 
@@ -351,50 +323,53 @@ h3 {
 }
 
 .navig a {
-    color: var(--color-primary-light);
+    color: var(--color-white);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 900;
     font-size: 0.95rem;
     transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     position: relative;
-    padding-bottom: 4px;
+    padding: 5px 10px;
+    border: 2px solid transparent;
 }
 
 .navig a::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     left: 0;
     width: 0;
-    height: 2px;
-    background: var(--gradient-primary);
+    height: 3px;
+    background: var(--color-accent);
     transition: width 0.3s ease;
 }
 
 .navig a:hover {
-    color: var(--color-accent);
+    background: var(--color-accent);
+    color: var(--color-black);
+    border: 2px solid var(--color-black);
 }
 
 .navig a:hover::after {
-    width: 100%;
+    width: 0;
 }
 
-/* --- Formuláře --- */
+/* --- Forms --- */
 .form-box {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-gray);
+    border: 6px solid var(--color-black);
     padding: 30px;
     margin-top: 30px;
     position: relative;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: 12px 12px 0px var(--color-black);
     transition: all 0.3s ease;
 }
 
 .form-box:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(99, 102, 241, 0.3);
+    transform: rotate(-1deg);
+    box-shadow: 16px 16px 0px var(--color-black);
 }
 
 .form-box input[type="text"],
@@ -404,21 +379,13 @@ h3 {
     width: 100%;
     padding: 12px 16px;
     margin: 10px 0 20px 0;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    color: var(--color-white);
-    font-family: inherit;
-    font-size: 0.95rem;
-    border-radius: 8px;
+    border: 4px solid var(--color-black);
+    background: var(--color-white);
+    color: var(--color-black);
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    font-weight: bold;
     transition: all 0.3s ease;
-}
-
-.form-box input[type="text"]::placeholder,
-.form-box input[type="email"]::placeholder,
-.form-box input[type="password"]::placeholder,
-.form-box textarea::placeholder {
-    color: var(--color-gray-medium);
 }
 
 .form-box input[type="text"]:focus,
@@ -426,89 +393,98 @@ h3 {
 .form-box input[type="password"]:focus,
 .form-box textarea:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(99, 102, 241, 0.5);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    background: var(--color-yellow);
+    box-shadow: 6px 6px 0px var(--color-black);
+    transform: rotate(-1deg);
 }
 
 .form-box label {
     display: block;
-    font-weight: 600;
+    font-weight: 900;
     margin-bottom: 8px;
-    color: var(--color-white);
-    font-size: 0.95rem;
+    color: var(--color-black);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* --- Flash zprávy --- */
+/* --- Alerts --- */
 .alert {
-    padding: 16px 20px;
+    padding: 20px;
     margin-bottom: 20px;
-    border: 1px solid transparent;
+    border: 4px solid var(--color-black);
     text-align: center;
-    border-radius: 8px;
-    backdrop-filter: blur(10px);
-    animation: slideInDown 0.4s ease-out;
-    font-weight: 500;
+    font-weight: bold;
+    text-transform: uppercase;
+    animation: slideInBrutal 0.4s ease-out;
+    box-shadow: 8px 8px 0px var(--color-black);
 }
 
 .alert-success {
-    background: rgba(16, 185, 129, 0.1);
-    border-color: rgba(16, 185, 129, 0.3);
-    color: #6ee7b7;
+    background: #00ff00;
+    color: var(--color-black);
+    border-color: var(--color-black);
 }
 
 .alert-danger, .alert-error {
-    background: rgba(239, 68, 68, 0.1);
-    border-color: rgba(239, 68, 68, 0.3);
-    color: #fca5a5;
+    background: var(--color-accent);
+    color: var(--color-white);
+    border-color: var(--color-black);
 }
 
-/* --- Komentáře --- */
+/* --- Comments --- */
 .comment-item {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 20px 0;
+    border-left: 6px solid var(--color-black);
+    border-bottom: 3px dashed var(--color-black);
+    padding: 20px 20px 20px 20px;
+    margin-bottom: 20px;
     transition: all 0.3s ease;
+    background: var(--color-gray);
 }
 
 .comment-item:hover {
-    background: rgba(255, 255, 255, 0.02);
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 8px;
+    background: var(--color-yellow);
+    border-left: 6px solid var(--color-accent);
+    transform: translateX(10px);
 }
 
 .comment-meta b {
-    color: var(--color-primary-light);
-    font-weight: 600;
+    color: var(--color-black);
+    font-weight: 900;
+    text-transform: uppercase;
 }
 
 .comment-meta {
-    color: var(--color-gray-medium);
-    font-size: 0.9rem;
-    margin-bottom: 8px;
+    color: var(--color-black);
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
 .kls {
-    color: var(--color-primary-light);
+    color: var(--color-black);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 900;
     transition: all 0.3s ease;
     position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .kls::after {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: -3px;
     left: 0;
     width: 0;
-    height: 2px;
-    background: var(--gradient-primary);
+    height: 3px;
+    background: var(--color-accent);
     transition: width 0.3s ease;
 }
 
 .kls:hover {
-    color: var(--color-accent);
+    background: var(--color-yellow);
+    padding: 0 5px;
 }
 
 .kls:hover::after {
@@ -517,26 +493,34 @@ h3 {
 
 /* --- Posts Container --- */
 .posts-container {
-    animation: fadeIn 0.8s ease-out 0.3s both;
+    animation: fadeInBrutal 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInBrutal {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
     h1 {
         font-size: 2.5rem;
+        box-shadow: 8px 8px 0px var(--color-black);
     }
     
     .post {
         padding: 25px;
+        box-shadow: 10px 10px 0px var(--color-black);
     }
     
     .post-icon {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
     
     .navig {
         bottom: 10px;
         padding: 10px 20px;
+        box-shadow: 8px 8px 0px var(--color-accent);
     }
     
     .navig ul {
@@ -546,31 +530,36 @@ h3 {
     }
     
     .navig a {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
     
     .btn, input[type="submit"] {
-        padding: 10px 20px;
+        padding: 12px 20px;
         font-size: 0.9rem;
     }
 }
 
 @media (max-width: 480px) {
     h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        border: 4px solid var(--color-black);
+        box-shadow: 4px 4px 0px var(--color-black);
+        padding: 15px;
     }
     
     .post {
         padding: 20px;
-        margin-bottom: 20px;
+        border: 4px solid var(--color-black);
+        box-shadow: 6px 6px 0px var(--color-black);
+        margin-bottom: 25px;
     }
     
     .post h2 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
     
     .post-icon {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         top: 15px;
         right: 15px;
     }
@@ -580,6 +569,6 @@ h3 {
     }
     
     .homepage-header p {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 }
